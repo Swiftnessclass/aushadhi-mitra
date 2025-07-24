@@ -5,27 +5,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex flex-col justify-between">
-      {/* Header */}
-      <header className="bg-blue-800 text-white py-6 shadow-md">
-        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
-          <h1 className="text-3xl font-bold">Aushadhi Mitra</h1>
-          <nav className="space-x-4 hidden md:block">
-            <Link href="/medicines" className="hover:underline">
-              Search Medicines
-            </Link>
-            <Link href="/stores" className="hover:underline">
-              Jan Aushadhi Stores
-            </Link>
-            <Link href="/schemes" className="hover:underline">
-              Govt Schemes
-            </Link>
-            <Link href="/contact" className="hover:underline">
-              Contact
-            </Link>
-          </nav>
-        </div>
-      </header>
-
+     
       {/* Hero Section */}
       <section className="flex-1 flex flex-col md:flex-row items-center justify-center px-6 py-12 max-w-7xl mx-auto">
         {/* Left Content */}
@@ -63,9 +43,23 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-blue-900 text-white text-center py-4 mt-8">
-        <p>© 2025 Aushadhi Mitra | An Initiative for Affordable Healthcare</p>
-      </footer>
+      <footer className="bg-blue-900 text-white text-center py-6 mt-8">
+  <div className="max-w-4xl mx-auto px-4">
+    <p className="text-lg font-semibold mb-2">© 2025 Aushadhi Mitra | An Initiative for Affordable Healthcare</p>
+    <p className="mb-1">Bringing Government Medicine Support to Every Home</p>
+    <p className="mb-2">Find Jan Aushadhi Stores, Compare Prices, Explore Alternatives</p>
+    <div className="flex flex-col md:flex-row justify-center gap-4 text-sm mt-4">
+      <span>Email: support@aushadhimitra.in</span>
+      <span>Helpline: 1800-123-4567</span>
+      <span>Address: Ministry of Health, New Delhi, India</span>
+    </div>
+    <div className="mt-4 text-sm">
+      <a href="/privacy" className="underline hover:text-gray-300">Privacy Policy</a> | 
+      <a href="/terms" className="underline hover:text-gray-300 ml-2">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
     </main>
   );
 }

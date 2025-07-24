@@ -6,9 +6,10 @@ export const Navbar = () => {
     <Link href="/" className="font-bold text-xl">Aushadhi Mitra</Link>
     <div className="space-x-4">
       <Link href="/medicines">Medicines</Link>
-      <Link href="/stores">Stores</Link>
+      <Link href="/pharmacy">pharmacy</Link>
       <Link href="/hospitals">Hospitals</Link>
-      <Link href="/schemes">Schemes</Link>
+      <Link href="/Schemes">Schemes</Link>
+      <Link href="/contact">contact</Link>
     </div>
   </nav>
   );
