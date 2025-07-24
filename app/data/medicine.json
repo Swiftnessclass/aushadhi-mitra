@@ -1,0 +1,182 @@
+[
+  {
+    "_id": "1",
+    "name": "Paracetamol",
+    "description": "Used to treat pain and fever.",
+    "price": 10
+  },
+  {
+    "_id": "2",
+    "name": "Ibuprofen",
+    "description": "NSAID for inflammation and pain relief.",
+    "price": 20
+  },
+  {
+    "_id": "3",
+    "name": "Amoxicillin",
+    "description": "Antibiotic for bacterial infections.",
+    "price": 30
+  },
+  {
+    "_id": "4",
+    "name": "Azithromycin",
+    "description": "Antibiotic used for respiratory and skin infections.",
+    "price": 40
+  },
+  {
+    "_id": "5",
+    "name": "Metformin",
+    "description": "Used to manage type 2 diabetes.",
+    "price": 25
+  },
+  {
+    "_id": "6",
+    "name": "Losartan",
+    "description": "Used to treat high blood pressure.",
+    "price": 22
+  },
+  {
+    "_id": "7",
+    "name": "Amlodipine",
+    "description": "Used for treating high blood pressure and chest pain.",
+    "price": 18
+  },
+  {
+    "_id": "8",
+    "name": "Pantoprazole",
+    "description": "Reduces stomach acid; treats acidity and ulcers.",
+    "price": 15
+  },
+  {
+    "_id": "9",
+    "name": "Omeprazole",
+    "description": "Used to treat GERD and acid reflux.",
+    "price": 14
+  },
+  {
+    "_id": "10",
+    "name": "Cetirizine",
+    "description": "Antihistamine for allergies.",
+    "price": 5
+  },
+  {
+    "_id": "11",
+    "name": "Loratadine",
+    "description": "Non-drowsy antihistamine for allergies.",
+    "price": 8
+  },
+  {
+    "_id": "12",
+    "name": "Dolo 650",
+    "description": "Pain reliever and fever reducer.",
+    "price": 12
+  },
+  {
+    "_id": "13",
+    "name": "Ciprofloxacin",
+    "description": "Broad-spectrum antibiotic.",
+    "price": 35
+  },
+  {
+    "_id": "14",
+    "name": "Vitamin D3",
+    "description": "Supplement for bone health.",
+    "price": 20
+  },
+  {
+    "_id": "15",
+    "name": "Iron Folic Acid",
+    "description": "Used in anemia and pregnancy.",
+    "price": 10
+  },
+  {
+    "_id": "16",
+    "name": "Levothyroxine",
+    "description": "Treats hypothyroidism.",
+    "price": 18
+  },
+  {
+    "_id": "17",
+    "name": "Atorvastatin",
+    "description": "Used to lower cholesterol.",
+    "price": 28
+  },
+  {
+    "_id": "18",
+    "name": "Insulin",
+    "description": "Regulates blood sugar in diabetes.",
+    "price": 50
+  },
+  {
+    "_id": "19",
+    "name": "Salbutamol Inhaler",
+    "description": "Used for asthma and breathing issues.",
+    "price": 60
+  },
+  {
+    "_id": "20",
+    "name": "Hydroxychloroquine",
+    "description": "Used for malaria and autoimmune diseases.",
+    "price": 35
+  },
+  {
+    "_id": "21",
+    "name": "Prednisolone",
+    "description": "Steroid used for inflammation.",
+    "price": 22
+  },
+  {
+    "_id": "22",
+    "name": "Chlorpheniramine",
+    "description": "Antihistamine for cold and allergies.",
+    "price": 6
+  },
+  {
+    "_id": "23",
+    "name": "ORS Powder",
+    "description": "Rehydrates in cases of diarrhea or dehydration.",
+    "price": 4
+  },
+  {
+    "_id": "24",
+    "name": "Zinc Sulfate",
+    "description": "Used for immunity and diarrhea management.",
+    "price": 5
+  },
+  {
+    "_id": "25",
+    "name": "Clotrimazole Cream",
+    "description": "Antifungal skin treatment.",
+    "price": 25
+  },
+  {
+    "_id": "26",
+    "name": "Loperamide",
+    "description": "Used to control diarrhea.",
+    "price": 7
+  },
+  {
+    "_id": "27",
+    "name": "Ranitidine",
+    "description": "Used for acidity and stomach ulcers.",
+    "price": 16
+  },
+  {
+    "_id": "28",
+    "name": "Multivitamin Tablets",
+    "description": "Daily supplement for general health.",
+    "price": 20
+  },
+  {
+    "_id": "29",
+    "name": "Calcium Carbonate",
+    "description": "Used for calcium deficiency.",
+    "price": 12
+  },
+  {
+    "_id": "30",
+    "name": "Betadine Solution",
+    "description": "Antiseptic for wounds.",
+    "price": 15
+  }
+]
