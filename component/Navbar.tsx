@@ -7,9 +7,12 @@ export const Navbar = () => {
     <div className="space-x-4">
       <Link href="/medicines">Medicines</Link>
       <Link href="/pharmacy">pharmacy</Link>
-      <Link href="/hospitals">Hospitals</Link>
+      <Link href="/diagnosis" >AI Symptom Checker</Link>
       <Link href="/Schemes">Schemes</Link>
-      <Link href="/contact">contact</Link>
+      <Link href="/contact" className="hover:underline">
+  Contact
+</Link>
+
     </div>
   </nav>
   );

@@ -69,7 +69,7 @@ export default function SchemesPage() {
             <SchemeCard key={scheme._id} scheme={scheme} />
           ))
         ) : (
-          <p className="text-gray-500 col-span-full">No schemes found. Try different filters.</p>
+          <p className="text-gray-500 col-span-full">search to find scheme....</p>
         )}
       </div>
     </div>
