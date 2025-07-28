@@ -1,33 +1,36 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextResponse } from "next/server";
-
-const genAI = new GoogleGenerativeAI(process.env.GROQ_API_KEY!);
+import { connectDB } from "@/Lib/db";
+import { Diagnosis } from "@/models/Diagnosis";
 
 export async function POST(req: Request) {
   try {
-    const { name, gender, symptoms } = await req.json();
+    const { symptoms } = await req.json();
 
     if (!symptoms || !Array.isArray(symptoms) || symptoms.length === 0) {
-      return NextResponse.json(
-        { error: "No symptoms provided." },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "No symptoms provided." }, { status: 400 });
     }
 
-    const prompt = `Patient name: ${name || "N/A"}\nGender: ${gender}\nSymptoms: ${symptoms.join(
-      ", "
-    )}\n\nGive a possible diagnosis.`;
+    await connectDB();
 
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = await response.text();
+    // Normalize input
+    const inputSymptoms = symptoms.map((s: string) => s.toLowerCase().trim());
 
-    return NextResponse.json({ prediction: text });
-  } catch (error: any) {
-    console.error("Diagnosis error:", error);
+    // Match any diagnosis with at least one matching symptom
+    const matches = await Diagnosis.find({
+      symptoms: { $in: inputSymptoms },
+    });
+
+    if (!matches.length) {
+      return NextResponse.json({ prediction: "No matching diagnosis found." });
+    }
+
+    // You can return the best match (most common symptom overlap)
+    const topMatch = matches[0]; // or write logic to sort by relevance
+    return NextResponse.json({ prediction: topMatch.diagnosis });
+  } catch (error) {
+    console.error("Diagnosis DB error:", error);
     return NextResponse.json(
-      { error: "Diagnosis failed. Please check your Gemini API and input." },
+      { error: "Diagnosis lookup failed. Please try again." },
       { status: 500 }
     );
   }
