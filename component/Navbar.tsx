@@ -7,11 +7,9 @@ export const Navbar = () => {
     <div className="space-x-4">
       <Link href="/medicines">Medicines</Link>
       <Link href="/pharmacy">pharmacy</Link>
-      <Link href="/diagnosis" >AI Symptom Checker</Link>
-      <Link href="/medicine-search">Search Medicines</Link>
+      <Link href="/diagnosis" >Symptom Checker</Link>
       <Link href="/Schemes">Schemes</Link>
-      <Link href="/contact" >Contact</Link>
-      
+      <Link href="/contact" >Contact</Link> 
     </div>
   </nav>
   );

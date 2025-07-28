@@ -18,7 +18,7 @@ export default function Home() {
           </p>
           <div className="space-x-4 space-y-2 md:space-y-0 md:flex md:flex-wrap md:gap-4">
             <Link
-              href="/medicines"
+              href="/medicine-search"
               className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded shadow transition block"
             >
               Search Medicines
