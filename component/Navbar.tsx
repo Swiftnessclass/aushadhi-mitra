@@ -8,11 +8,10 @@ export const Navbar = () => {
       <Link href="/medicines">Medicines</Link>
       <Link href="/pharmacy">pharmacy</Link>
       <Link href="/diagnosis" >AI Symptom Checker</Link>
+      <Link href="/medicine-search">Search Medicines</Link>
       <Link href="/Schemes">Schemes</Link>
-      <Link href="/contact" className="hover:underline">
-  Contact
-</Link>
-
+      <Link href="/contact" >Contact</Link>
+      
     </div>
   </nav>
   );
