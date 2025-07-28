@@ -1,8 +1,8 @@
-import mongoose, { Schema, models } from "mongoose";
+import mongoose from "mongoose";
 
-const DiagnosisSchema = new Schema({
+const DiagnosisSchema = new mongoose.Schema({
   symptoms: [String],
   diagnosis: String,
 });
 
-export const Diagnosis = models.Diagnosis || mongoose.model("Diagnosis", DiagnosisSchema);
+export const Diagnosis = mongoose.models.Diagnosis || mongoose.model("Diagnosis", DiagnosisSchema);
