@@ -1,24 +1,23 @@
-import type { Metadata } from "next";
-import { Navbar } from "@/component/Navbar";
+// app/layout.tsx
 import "./globals.css";
+import { cookies } from "next/headers";
+import { Navbar } from "@/component/Navbar";
 
-
-export const metadata: Metadata = {
-  title: "Aushadhi Mitra",
-  description: "Check medicine availability, prices, stores & more",
-};
-
-// This is the root layout for the application.
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const cookieStore = await cookies(); // ✅ Await it
+  const token = cookieStore.get("token")?.value;
+
+  const isLoggedIn = !!token;
+
   return (
     <html lang="en">
-      <body className="bg-gray-100 text-gray-900">
-        <Navbar /> {/* ✅ Shown on every page */}
-        <main className="p-4">{children}</main>
+      <body>
+        {isLoggedIn && <Navbar />}
+        {children}
       </body>
     </html>
   );
