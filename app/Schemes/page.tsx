@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import SchemeCard from "@/component/SchemeCard";
+import SchemeCard from "@/components/SchemeCard";
 
 type Scheme = {
   _id: string;

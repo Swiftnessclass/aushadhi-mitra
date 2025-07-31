@@ -1,22 +1,19 @@
 // app/layout.tsx
 import "./globals.css";
-import { cookies } from "next/headers";
-import { Navbar } from "@/component/Navbar";
+import type { Metadata } from "next";
+import Navbar from "@/components/Navbar";
 
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const cookieStore = await cookies(); // ✅ Await it
-  const token = cookieStore.get("token")?.value;
+export const metadata: Metadata = {
+  title: "Aushadhi Mitra",
+  description: "Medicine portal",
+};
 
-  const isLoggedIn = !!token;
-
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
-        {isLoggedIn && <Navbar />}
+        {/* Navbar rendered always, will conditionally hide inside */}
+        <Navbar />
         {children}
       </body>
     </html>

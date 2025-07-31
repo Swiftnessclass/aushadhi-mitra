@@ -1,4 +1,4 @@
-import StoreLocator from "@/component/PharmacySearch";
+import StoreLocator from "@/components/PharmacySearch";
 
 export default function StoresPage() {
   return (
