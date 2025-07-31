@@ -1,13 +1,14 @@
+// app/page.tsx
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export default async function Home() {
-  const cookieStore = await cookies();
-  const token = cookieStore. get("token");
+export default async function HomePage() {
+  const cookieStore = await  cookies();
+  const token = cookieStore.get("token")?.value;
 
   if (!token) {
-    redirect("/login");
+    redirect("/dashboard"); // ✅ Already logged in, go to dashboard
   } else {
-    redirect("/dashboard");
+    redirect("/login");     // ✅ Not logged in, go to login
   }
 }
