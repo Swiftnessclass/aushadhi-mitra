@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+
 
 // Type definition
 type Medicine = {
@@ -15,14 +15,15 @@ export default function MedicinesPage() {
   const [medicines, setMedicines] = useState<Medicine[]>([]);
   const [selectedMedicine, setSelectedMedicine] = useState<Medicine | null>(null);
   const [purchaseConfirmed, setPurchaseConfirmed] = useState(false);
-  const router = useRouter();
+ 
 
   // Fetch all medicines
   useEffect(() => {
     fetch("/api/medicines")
       .then((res) => res.json())
       .then((data) => setMedicines(data))
-      .catch((err) => console.error("Error fetching medicines:", err));
+      .catch(() => console.log("Error fetching medicines:"));
+
   }, []);
 
   // Fetch single medicine on selection

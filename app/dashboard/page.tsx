@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
 
@@ -52,12 +53,14 @@ export default function Home() {
 
         {/* Right Image */}
         <div className="md:w-1/2 mt-10 md:mt-0 flex justify-center">
-          <img
-            src="/aushadhi-illustration.png"
-            alt="Aushadhi Illustration"
-            width={100} height={100}
-            className="w-4/5 max-w-md"
-          />
+        <Image
+  src="/aushadhi-illustration.png"
+  alt="Aushadhi Illustration"
+  width={400}
+  height={300}
+  className="w-4/5 max-w-md h-auto object-contain"
+/>
+
         </div>
       </section>
 

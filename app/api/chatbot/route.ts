@@ -1,32 +1,47 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
+// Make sure you have set GROQ_API_KEY in your .env.local file
 const openai = new OpenAI({
-  apiKey: process.env.GROQ_API_KEY!,
+  apiKey: process.env.GROQ_API_KEY || "", // Safe fallback
   baseURL: "https://api.groq.com/openai/v1",
 });
 
+type ChatRequest = {
+  message: string;
+};
+
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const message = body.message;
+    const body = (await req.json()) as ChatRequest;
 
-    console.log("Incoming message:", message);
-
-    if (!message) {
-      return NextResponse.json({ reply: "No message provided." }, { status: 400 });
+    if (!body || typeof body.message !== "string" || body.message.trim() === "") {
+      return NextResponse.json(
+        { reply: "❌ Invalid input. Please send a valid message." },
+        { status: 400 }
+      );
     }
 
+    const userMessage = body.message.trim();
+    console.log("Incoming message:", userMessage);
+
     const chatCompletion = await openai.chat.completions.create({
-      model: "gemma-7b-it", // ✅ or use other available Groq models like mixtral-8x7b, llama3-8b
-      messages: [{ role: "user", content: message }],
+      model: "gemma-7b-it", // or "llama3-8b", "mixtral-8x7b"
+      messages: [{ role: "user", content: userMessage }],
       temperature: 0.7,
     });
 
-    const reply = chatCompletion.choices[0].message.content;
+    const reply = chatCompletion.choices?.[0]?.message?.content;
+
+    if (!reply) {
+      return NextResponse.json(
+        { reply: "❌ No response generated from model." },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ reply });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Groq API error:", error);
 
     return NextResponse.json(

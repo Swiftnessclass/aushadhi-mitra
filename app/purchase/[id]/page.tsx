@@ -25,9 +25,10 @@ export default function PurchasePage() {
         })
         .then((data) => setMedicine(data))
         .catch((err) => {
-          console.error(err);
+          console.error("Failed to fetch medicine:", err);
           setMedicine(null);
         });
+        
     }
   }, [id]);
 

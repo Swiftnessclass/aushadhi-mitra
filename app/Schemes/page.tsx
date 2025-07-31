@@ -12,16 +12,49 @@ type Scheme = {
   maxIncome: number;
 };
 
+type Filters = {
+  age: string;
+  income: string;
+  category: string;
+};
+
 export default function SchemesPage() {
   const [schemes, setSchemes] = useState<Scheme[]>([]);
-  const [filters, setFilters] = useState({ age: "", income: "", category: "" });
+  const [filters, setFilters] = useState<Filters>({
+    age: "",
+    income: "",
+    category: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFilters((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const getQueryString = (filters: Filters): string => {
+    const validFilters: Record<string, string> = {};
+
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value.trim() !== "") {
+        validFilters[key] = value;
+      }
+    });
+
+    return new URLSearchParams(validFilters).toString();
+  };
 
   const fetchSchemes = async () => {
-    const query = new URLSearchParams(filters as any).toString();
-    const res = await fetch(`/api/schemes?${query}`);
-    const data = await res.json();
-    console.log("Fetched schemes:", data);
-    setSchemes(data);
+    try {
+      const query = getQueryString(filters);
+      const res = await fetch(`/api/schemes?${query}`);
+      const data: Scheme[] = await res.json();
+      console.log("Fetched schemes:", data);
+      setSchemes(data);
+    } catch (err) {
+      console.error("Error fetching schemes:", err);
+    }
   };
 
   return (
@@ -31,22 +64,28 @@ export default function SchemesPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
         <input
           type="number"
+          name="age"
           placeholder="Age"
+          min={0}
+          max={120}
           className="p-2 border rounded"
           value={filters.age}
-          onChange={(e) => setFilters({ ...filters, age: e.target.value })}
+          onChange={handleChange}
         />
         <input
           type="number"
+          name="income"
           placeholder="Annual Income"
+          min={0}
           className="p-2 border rounded"
           value={filters.income}
-          onChange={(e) => setFilters({ ...filters, income: e.target.value })}
+          onChange={handleChange}
         />
         <select
+          name="category"
           className="p-2 border rounded"
           value={filters.category}
-          onChange={(e) => setFilters({ ...filters, category: e.target.value })}
+          onChange={handleChange}
         >
           <option value="">All Categories</option>
           <option value="Women">Women</option>
@@ -57,8 +96,13 @@ export default function SchemesPage() {
       </div>
 
       <button
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition disabled:opacity-50"
         onClick={fetchSchemes}
+        disabled={
+          filters.age.trim() === "" &&
+          filters.income.trim() === "" &&
+          filters.category.trim() === ""
+        }
       >
         Search
       </button>
@@ -69,7 +113,9 @@ export default function SchemesPage() {
             <SchemeCard key={scheme._id} scheme={scheme} />
           ))
         ) : (
-          <p className="text-gray-500 col-span-full">search to find scheme....</p>
+          <p className="text-gray-500 col-span-full">
+            Search to find schemes…
+          </p>
         )}
       </div>
     </div>

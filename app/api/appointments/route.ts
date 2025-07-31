@@ -14,7 +14,11 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: "Missing userId" }, { status: 400 });
     }
 
-    const query: any = { userId };
+    const query: {
+      userId: string;
+      reason?: { $regex: string; $options: string };
+    } = { userId };
+
     if (reason) {
       query.reason = { $regex: reason, $options: "i" };
     }
@@ -22,10 +26,12 @@ export async function GET(req: Request) {
     const appointments = await Appointment.find(query).sort({ date: 1 });
     return NextResponse.json({ appointments });
   } catch (error) {
-    console.error("Error fetching appointments:", error);
-    return NextResponse.json(
-      { error: "Server error" },
-      { status: 500 }
-    );
+    if (error instanceof Error) {
+      console.error("Error fetching appointments:", error.message);
+    } else {
+      console.error("Unknown error fetching appointments:", error);
+    }
+
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

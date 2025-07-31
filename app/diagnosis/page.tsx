@@ -59,36 +59,8 @@ export default function DiagnosisPage() {
     }
   };
 
-  const handleDownloadPDF = async () => {
-    if (!diagnosis) return;
+  
 
-    const html = `
-      <h1>Diagnosis Report</h1>
-      <p><strong>Patient Name:</strong> ${name || "N/A"}</p>
-      <p><strong>Gender:</strong> ${gender}</p>
-      <p><strong>Symptoms:</strong> ${symptoms.join(", ")}</p>
-      <p><strong>Diagnosis:</strong></p>
-      <p>${diagnosis}</p>
-    `;
-
-    try {
-      const res = await fetch("/api/generate-pdf", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ htmlContent: html, name }),
-      });
-
-      const blob = await res.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `${name || "diagnosis"}.pdf`;
-      a.click();
-      window.URL.revokeObjectURL(url);
-    } catch (err) {
-      alert("PDF generation failed.");
-    }
-  };
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
