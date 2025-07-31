@@ -171,17 +171,13 @@ export default function DiagnosisPage() {
         </div>
 
         {diagnosis && (
-          <div className="mt-8 p-4 border-l-4 border-green-600 bg-green-50 rounded">
-            <h2 className="text-xl font-bold text-green-800 mb-2">AI Diagnosis Result</h2>
-            <p className="whitespace-pre-wrap text-gray-800">{diagnosis}</p>
-            <button
-              onClick={handleDownloadPDF}
-              className="mt-4 bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700"
-            >
-              Download PDF
-            </button>
-          </div>
-        )}
+  <div className="mt-8 p-4 border-l-4 border-green-600 bg-green-50 rounded">
+    <h2 className="text-xl font-bold text-green-800 mb-2">AI Diagnosis Result</h2>
+    <p className="whitespace-pre-wrap text-gray-800">{diagnosis}</p>
+   
+  </div>
+)}
+
       </div>
     </div>
   );

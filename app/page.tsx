@@ -7,8 +7,8 @@ export default async function HomePage() {
   const token = cookieStore.get("token")?.value;
 
   if (!token) {
-    redirect("/dashboard"); // ✅ Already logged in, go to dashboard
+    redirect("/dashboard");
   } else {
-    redirect("/login");     // ✅ Not logged in, go to login
+    redirect("/login");     
   }
 }

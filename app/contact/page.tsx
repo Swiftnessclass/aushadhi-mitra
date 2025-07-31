@@ -1,4 +1,3 @@
-// app/contact/page.tsx
 "use client";
 
 import React, { useRef } from "react";
@@ -14,10 +13,10 @@ export default function ContactPage() {
 
     emailjs
       .sendForm(
-        "service_ricjpiu", // Replace with your EmailJS service ID
-        "template_g7pd41o", // Replace with your EmailJS template ID
+        "service_ricjpiu",        // ✅ Your EmailJS service ID
+        "template_g7pd41o",       // ✅ Your EmailJS template ID
         form.current,
-        "epCteR0Y65mz0tyKn" // Replace with your EmailJS public key
+        "epCteR0Y65mz0tyKn"       // ✅ Your EmailJS public key
       )
       .then(
         () => {
@@ -33,44 +32,49 @@ export default function ContactPage() {
   };
 
   return (
-    <form ref={form} onSubmit={sendEmail} className="max-w-md mx-auto p-4 space-y-4 bg-white shadow-md rounded">
-     <input type="hidden" name="company_name" value="Aushadhi Mitra" />
-  
-    <div>
-      <label className="block mb-1 font-medium">Name</label>
-      <input
-        type="text"
-        name="user_name"
-        required
-        className="w-full border border-gray-300 p-2 rounded"
-      />
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-white px-4">
+      <form
+        ref={form}
+        onSubmit={sendEmail}
+        className="w-full max-w-md p-6 space-y-4 bg-white shadow-lg rounded-lg"
+      >
+        <input type="hidden" name="company_name" value="Aushadhi Mitra" />
+
+        <div>
+          <label className="block mb-1 font-medium text-gray-700">Name</label>
+          <input
+            type="text"
+            name="user_name"
+            required
+            className="w-full border border-gray-300 p-2 rounded focus:ring-2 focus:ring-blue-500 outline-none"
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1 font-medium text-gray-700">Email</label>
+          <input
+            type="email"
+            name="user_email"
+            required
+            className="w-full border border-gray-300 p-2 rounded focus:ring-2 focus:ring-blue-500 outline-none"
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1 font-medium text-gray-700">Message</label>
+          <textarea
+            name="message"
+            required
+            className="w-full border border-gray-300 p-2 rounded h-28 resize-none focus:ring-2 focus:ring-blue-500 outline-none"
+          />
+        </div>
+
+        <input
+          type="submit"
+          value="Send"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded cursor-pointer transition"
+        />
+      </form>
     </div>
-  
-    <div>
-      <label className="block mb-1 font-medium">Email</label>
-      <input
-        type="email"
-        name="user_email"
-        required
-        className="w-full border border-gray-300 p-2 rounded"
-      />
-    </div>
-  
-    <div>
-      <label className="block mb-1 font-medium">Message</label>
-      <textarea
-        name="message"
-        required
-        className="w-full border border-gray-300 p-2 rounded"
-      />
-    </div>
-  
-    <input
-      type="submit"
-      value="Send"
-      className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded cursor-pointer"
-    />
-  </form>
-  
   );
 }
