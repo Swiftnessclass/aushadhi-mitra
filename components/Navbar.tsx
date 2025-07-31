@@ -29,7 +29,7 @@ export default function Navbar() {
 
   return (
     <nav className="bg-blue-800 text-white p-4 flex justify-between">
-      <Link href="/" className="font-bold text-xl">
+      <Link href="/dashboard" className="font-bold text-xl">
         Dashboard
       </Link>
       <div className="space-x-4">
