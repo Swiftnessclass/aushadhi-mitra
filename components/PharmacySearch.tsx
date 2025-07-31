@@ -23,7 +23,7 @@ export default function PharmacySearch() {
     setMessage("");
     setResults([]);
 
-    let requestBody: any = {
+    const requestBody: any = {
       radius,
       includeHospitals,
     };

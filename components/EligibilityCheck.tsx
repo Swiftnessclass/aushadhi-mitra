@@ -1,6 +1,12 @@
 // components/EligibilityCheck.tsx
 import { useState } from "react";
-export default function EligibilityCheck({ scheme }: { scheme: any }) {
+
+type Scheme = {
+  minAge: number;
+  maxIncome: number;
+};
+
+export default function EligibilityCheck({ scheme }: { scheme: Scheme }) {
   const [age, setAge] = useState("");
   const [income, setIncome] = useState("");
   const [eligible, setEligible] = useState<string | null>(null);
@@ -27,7 +33,10 @@ export default function EligibilityCheck({ scheme }: { scheme: any }) {
         className="p-2 border rounded mr-2"
         onChange={(e) => setIncome(e.target.value)}
       />
-      <button className="bg-blue-600 text-white px-4 py-2 rounded" onClick={checkEligibility}>
+      <button
+        className="bg-blue-600 text-white px-4 py-2 rounded"
+        onClick={checkEligibility}
+      >
         Check
       </button>
       {eligible && <p className="mt-2">{eligible}</p>}

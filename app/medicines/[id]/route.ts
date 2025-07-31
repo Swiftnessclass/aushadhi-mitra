@@ -1,23 +1,25 @@
 // app/api/medicines/[id]/route.ts
-import { NextRequest, NextResponse } from "next/server";
 
-// Dummy medicine data (or fetch from DB)
-const medicines = [
-  { _id: "1", name: "Paracetamol", price: 10 },
-  { _id: "2", name: "Amoxicillin", price: 20 },
-];
+import { NextRequest, NextResponse } from "next/server";
+import { connectDB } from "@/Lib/db";
+import { Medicine } from "@/models/medicine";
 
 export async function GET(
-  request: NextRequest,
-  context: { params: { id: string } }
+  _req: NextRequest,
+  { params }: { params: { id: string } }
 ) {
-  const { id } = context.params; // ✅ Correct way to access param
+  try {
+    await connectDB();
 
-  const medicine = medicines.find((med) => med._id === id);
+    const medicine = await Medicine.findById(params.id);
 
-  if (!medicine) {
-    return NextResponse.json({ error: "Medicine not found" }, { status: 404 });
+    if (!medicine) {
+      return NextResponse.json({ error: "Medicine not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(medicine);
+  } catch (error) {
+    console.error("Error fetching medicine:", error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
-
-  return NextResponse.json(medicine);
 }

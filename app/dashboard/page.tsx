@@ -55,6 +55,7 @@ export default function Home() {
           <img
             src="/aushadhi-illustration.png"
             alt="Aushadhi Illustration"
+            width={100} height={100}
             className="w-4/5 max-w-md"
           />
         </div>
