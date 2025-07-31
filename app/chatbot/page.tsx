@@ -7,19 +7,30 @@ export default function ChatBotPage() {
 
   const sendMessage = async () => {
     if (!input.trim()) return;
-
+  
     const newMessages = [...messages, { role: "user", text: input }];
     setMessages(newMessages);
-
-    const res = await fetch("/api/chatbot", {
-      method: "POST",
-      body: JSON.stringify({ message: input }),
-    });
-    const data = await res.json();
-
-    setMessages((prev) => [...prev, { role: "bot", text: data.reply }]);
+  
+    try {
+      const res = await fetch("/api/chatbot", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: input }),
+      });
+  
+      const data = await res.json();
+  
+      setMessages((prev) => [...prev, { role: "bot", text: data.reply }]);
+    } catch (error) {
+      setMessages((prev) => [...prev, { role: "bot", text: "❌ Something went wrong." }]);
+      console.error("Chatbot error:", error);
+    }
+  
     setInput("");
   };
+  
 
   return (
     <div className="max-w-2xl mx-auto p-6">

@@ -18,6 +18,6 @@ const appointmentSchema = new Schema<IAppointment>({
 });
 
 const Appointment =
-  models.Appointment || model<IAppointment>("Appointment", appointmentSchema);
+mongoose.models.Appointment ||   mongoose.model<IAppointment>("Appointment", appointmentSchema);
 
 export default Appointment;

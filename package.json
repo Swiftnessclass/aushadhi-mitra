@@ -19,6 +19,7 @@
     "mongoose": "^8.16.5",
     "next": "15.4.3",
     "nodemailer": "^7.0.5",
+    "openai": "^5.11.0",
     "puppeteer": "^24.15.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",

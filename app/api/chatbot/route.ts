@@ -1,36 +1,33 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextResponse } from "next/server";
+import OpenAI from "openai";
 
-const genAI = new GoogleGenerativeAI(process.env.GROQ_API_KEY!);
+const openai = new OpenAI({
+  apiKey: process.env.GROQ_API_KEY!,
+  baseURL: "https://api.groq.com/openai/v1",
+});
 
 export async function POST(req: Request) {
   try {
-    // Load and log message
     const body = await req.json();
     const message = body.message;
+
     console.log("Incoming message:", message);
 
     if (!message) {
       return NextResponse.json({ reply: "No message provided." }, { status: 400 });
     }
 
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const chatCompletion = await openai.chat.completions.create({
+      model: "gemma-7b-it", // ✅ or use other available Groq models like mixtral-8x7b, llama3-8b
+      messages: [{ role: "user", content: message }],
+      temperature: 0.7,
+    });
 
-    const result = await model.generateContent(message);
-    const response = await result.response;
-    const text = await response.text();
+    const reply = chatCompletion.choices[0].message.content;
 
-    return NextResponse.json({ reply: text });
+    return NextResponse.json({ reply });
   } catch (error: any) {
-    console.error("Gemini API error:", error);
-    console.error("Error details:", JSON.stringify(error, null, 2));
-
-    if (error.status === 429) {
-      return NextResponse.json(
-        { reply: "⚠️ Rate limit reached. Try again later." },
-        { status: 429 }
-      );
-    }
+    console.error("Groq API error:", error);
 
     return NextResponse.json(
       { reply: "❌ Internal server error. Check logs for more info." },

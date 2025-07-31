@@ -12,7 +12,7 @@ import Appointments from "@/components/dashboard/Appointment";
 export default async function DashboardPage() {
   await connectDB();
 
-  const cookieStore = await cookies(); // no await needed
+  const cookieStore =await cookies(); // no await needed
   const token = cookieStore.get("token")?.value;
 
   if (!token) return <div className="text-red-600">Unauthorized</div>;
@@ -37,8 +37,8 @@ export default async function DashboardPage() {
 
   const upcoming = (await Appointment.find({ userId })
     .sort({ date: 1 })
-    .limit(5)
     .lean()) as unknown as IAppointment[];
+    console.log("✅ Upcoming appointments for user:", upcoming);
 
   return (
     <main className="p-6 space-y-6 max-w-4xl mx-auto">
