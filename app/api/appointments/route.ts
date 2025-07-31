@@ -1,7 +1,7 @@
 // app/api/appointments/route.ts
 import { NextResponse } from "next/server";
 import { connectDB } from "@/Lib/db";
-import  Appointment from "@/models/appointment";// You must define this
+import  Appointment from "@/models/appointments";// You must define this
 import { cookies } from "next/headers";
 import { verifyToken } from "@/Lib/jwt";
 
