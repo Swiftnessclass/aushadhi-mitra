@@ -11,12 +11,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex flex-col justify-between">
       
-      <Link
-    href="/indashboard"
-    className="absolute top-4 left-4 bg-blue-800 text-white rounded-full w-12 h-12 flex items-center justify-center shadow hover:bg-blue-900 transition"
-    title="Go to Profile"
-  >  P
-  </Link>
+      
       {/* Hero Section */}
       <section className="flex-1 flex flex-col md:flex-row items-center justify-center px-6 py-12 max-w-7xl mx-auto">
         {/* Left Content */}

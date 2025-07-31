@@ -35,7 +35,13 @@ export default function Navbar() {
       <Link href="/diagnosis" className="block px-4 py-2 hover:bg-blue-700">Symptom Checker</Link>
       <Link href="/Schemes" className="block px-4 py-2 hover:bg-blue-700">Schemes</Link>
       <Link href="/contact" className="block px-4 py-2 hover:bg-blue-700">Contact</Link>
-      <button onClick={handleLogout} className="block w-full text-left px-4 py-2 hover:bg-blue-700">Logout</button>
+      <button
+  onClick={handleLogout}
+  className="px-6 py-2 bg-red-600 text-white rounded-full shadow hover:bg-red-700 transition w-fit"
+>
+  Logout
+</button>
+
     </>
   );
 
@@ -44,12 +50,13 @@ export default function Navbar() {
       <div className="flex justify-between items-center">
         {/* Profile "P" Button */}
         <Link
-          href="/indashboard"
-          className="bg-blue-700 text-white rounded-full w-10 h-10 flex items-center justify-center shadow hover:bg-blue-900 transition"
-          title="Go to Profile"
-        >
-          P
-        </Link>
+  href="/indashboard"
+  className="bg-blue-700 text-white px-4 py-2 rounded-full shadow hover:bg-blue-900 transition text-sm font-medium"
+  title="Go to Profile"
+>
+  Profile
+</Link>
+
 
         {/* Hamburger Icon */}
         <div className="md:hidden">
@@ -68,12 +75,18 @@ export default function Navbar() {
 
       {/* Mobile Dropdown */}
       {menuOpen && (
-        <div className="md:hidden mt-2 bg-blue-700 rounded-lg shadow-lg flex flex-col text-sm">
-          {isLoggedIn ? navLinks : (
-            <Link href="/login" className="block px-4 py-2 hover:bg-blue-600">Login</Link>
-          )}
-        </div>
+  <div className="md:hidden fixed top-0 right-0 h-full w-64 bg-blue-700 text-white shadow-lg z-50 p-4 transition-transform duration-300 ease-in-out">
+    <div className="flex justify-end mb-4">
+      <X onClick={() => setMenuOpen(false)} className="w-6 h-6 cursor-pointer" />
+    </div>
+    <div className="flex flex-col space-y-2">
+      {isLoggedIn ? navLinks : (
+        <Link href="/login" className="block px-4 py-2 hover:bg-blue-600 rounded">Login</Link>
       )}
+    </div>
+  </div>
+)}
+
     </nav>
   );
 }
