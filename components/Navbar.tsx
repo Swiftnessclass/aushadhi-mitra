@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false); // NEW
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -17,6 +18,7 @@ export default function Navbar() {
 
   useEffect(() => {
     checkLoginStatus();
+    setHasMounted(true); // ✅ wait for hydration
   }, []);
 
   const handleLogout = () => {
@@ -27,6 +29,8 @@ export default function Navbar() {
 
   const hiddenPaths = ["/login", "/register"];
   if (hiddenPaths.includes(pathname)) return null;
+
+  if (!hasMounted) return null; // ✅ Only render after mount
 
   const navLinks = (
     <>
