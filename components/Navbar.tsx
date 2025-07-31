@@ -29,12 +29,13 @@ export default function Navbar() {
 
   return (
     <nav className="bg-blue-800 text-white p-4 flex justify-between">
-      <Link href="/dashboard" className="font-bold text-xl">
+      <Link href="/" className="font-bold text-xl">
         Dashboard
       </Link>
       <div className="space-x-4">
         {isLoggedIn ? (
           <>
+          
             <Link href="/medicines">Medicines</Link>
             <Link href="/pharmacy">Pharmacy</Link>
             <Link href="/diagnosis">Symptom Checker</Link>
