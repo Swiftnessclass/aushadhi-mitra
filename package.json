@@ -15,6 +15,7 @@
     "html-pdf-node": "^1.0.8",
     "jsonwebtoken": "^9.0.2",
     "leaflet": "^1.9.4",
+    "lucide-react": "^0.535.0",
     "mongoose": "^8.16.5",
     "next": "15.4.3",
     "nodemailer": "^7.0.5",
