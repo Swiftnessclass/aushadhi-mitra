@@ -53,25 +53,28 @@ export default function Navbar() {
         <div className="hidden md:flex space-x-4 items-center">
           {isLoggedIn ? (
             <>
-              <Link href="/medicines" className="hover:underline">Medicines</Link>
-              <Link href="/pharmacy" className="hover:underline">Pharmacy</Link>
-              <Link href="/diagnosis" className="hover:underline">Symptom Checker</Link>
-              <Link href="/Schemes" className="hover:underline">Schemes</Link>
-              <Link href="/contact" className="hover:underline">Contact</Link>
-              <button
-                onClick={handleLogout}
-                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
-              >
-                Logout
-              </button>
-            </>
-          ) : (
-            <Link
+               <Link
               href="/login"
               className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
             >
               Login
             </Link>
+            </>
+          ) : (
+          
+               <>
+               <Link href="/medicines" className="hover:underline">Medicines</Link>
+               <Link href="/pharmacy" className="hover:underline">Pharmacy</Link>
+               <Link href="/diagnosis" className="hover:underline">Symptom Checker</Link>
+               <Link href="/Schemes" className="hover:underline">Schemes</Link>
+               <Link href="/contact" className="hover:underline">Contact</Link>
+               <button
+                 onClick={handleLogout}
+                 className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
+               >
+                 Logout
+               </button>
+             </>
           )}
         </div>
       </div>
@@ -85,25 +88,30 @@ export default function Navbar() {
           <div className="flex flex-col space-y-2">
             {isLoggedIn ? (
               <>
-                <Link href="/medicines" className="block px-4 py-2 hover:bg-blue-800 rounded">Medicines</Link>
-                <Link href="/pharmacy" className="block px-4 py-2 hover:bg-blue-800 rounded">Pharmacy</Link>
-                <Link href="/diagnosis" className="block px-4 py-2 hover:bg-blue-800 rounded">Symptom Checker</Link>
-                <Link href="/Schemes" className="block px-4 py-2 hover:bg-blue-800 rounded">Schemes</Link>
-                <Link href="/contact" className="block px-4 py-2 hover:bg-blue-800 rounded">Contact</Link>
-                <button
-                  onClick={handleLogout}
-                  className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition mt-2"
-                >
-                  Logout
-                </button>
-              </>
-            ) : (
-              <Link
+                <Link
                 href="/login"
                 className="block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition text-center"
               >
                 Login
               </Link>
+              </>
+            ) : (
+             
+              <>
+              <Link href="/medicines" className="block px-4 py-2 hover:bg-blue-800 rounded">Medicines</Link>
+              <Link href="/pharmacy" className="block px-4 py-2 hover:bg-blue-800 rounded">Pharmacy</Link>
+              <Link href="/diagnosis" className="block px-4 py-2 hover:bg-blue-800 rounded">Symptom Checker</Link>
+              <Link href="/Schemes" className="block px-4 py-2 hover:bg-blue-800 rounded">Schemes</Link>
+              <Link href="/contact" className="block px-4 py-2 hover:bg-blue-800 rounded">Contact</Link>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition mt-2"
+              >
+                Logout
+              </button>
+            </>
+
+              
             )}
           </div>
         </div>
