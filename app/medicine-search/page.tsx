@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Medicine = {
   _id: string;
@@ -11,6 +12,7 @@ type Medicine = {
 };
 
 export default function MedicineSearchPage() {
+  const router = useRouter();
   const [disease, setDisease] = useState("");
   const [results, setResults] = useState<Medicine[]>([]);
   const [error, setError] = useState("");
@@ -34,7 +36,8 @@ export default function MedicineSearchPage() {
 
   return (
     <div className="p-6">
-      <h1 className="text-3xl font-bold mb-4">Medicine Search</h1>
+      <h1 className="text-3xl font-bold mb-4 text-blue-800">Medicine Search</h1>
+
       <input
         type="text"
         placeholder="Enter disease name..."
@@ -42,11 +45,24 @@ export default function MedicineSearchPage() {
         onChange={(e) => setDisease(e.target.value)}
         className="border p-2 w-full max-w-md"
       />
-      <button onClick={handleSearch} className="bg-blue-500 text-white px-4 py-2 mt-2">
+      <button
+        onClick={handleSearch}
+        className="bg-blue-500 text-white px-4 py-2 mt-2 ml-2 rounded hover:bg-blue-600 transition"
+      >
         Search
       </button>
 
       {error && <p className="text-red-600 mt-2">{error}</p>}
+
+      {/* Back Button (Positioned below search) */}
+      <div className="mt-4">
+        <button
+          onClick={() => router.back()}
+          className="text-blue-600 hover:underline"
+        >
+          ← Go Back
+        </button>
+      </div>
 
       <div className="mt-6">
         {results.length === 0 ? (
@@ -54,11 +70,15 @@ export default function MedicineSearchPage() {
         ) : (
           <ul>
             {results.map((med) => (
-              <li key={med._id} className="border p-4 mb-2">
-                <h2 className="text-xl font-semibold">{med.name}</h2>
-                <p>{med.description}</p>
-                <p><strong>Disease:</strong> {med.disease}</p>
-                <p><strong>Price:</strong> ₹{med.price}</p>
+              <li key={med._id} className="border p-4 mb-2 rounded shadow-sm bg-white">
+                <h2 className="text-xl font-semibold text-blue-700">{med.name}</h2>
+                <p className="text-gray-700">{med.description}</p>
+                <p className="text-sm mt-1">
+                  <strong>Disease:</strong> {med.disease}
+                </p>
+                <p className="text-sm">
+                  <strong>Price:</strong> ₹{med.price}
+                </p>
               </li>
             ))}
           </ul>

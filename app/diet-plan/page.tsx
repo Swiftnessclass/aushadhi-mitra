@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function DietPlansPage() {
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     age: "",
     gender: "male",
@@ -12,14 +15,15 @@ export default function DietPlansPage() {
 
   const [dietPlan, setDietPlan] = useState<string | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Simple logic — replace with AI-based later
     let plan = `For a ${formData.age}-year-old ${formData.gender} with ${formData.activity} activity aiming to ${formData.goal} weight:\n\n`;
 
     if (formData.goal === "lose") {
@@ -39,6 +43,14 @@ export default function DietPlansPage() {
         <h1 className="text-3xl font-bold mb-6 text-blue-800 text-center">
           Personalized Diet Plan
         </h1>
+
+        {/* Back Button */}
+        <button
+          onClick={() => router.back()}
+          className="mb-6 text-blue-600 hover:underline"
+        >
+          ← Go Back
+        </button>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -107,7 +119,9 @@ export default function DietPlansPage() {
 
         {dietPlan && (
           <div className="mt-10 bg-blue-50 border border-blue-200 p-6 rounded">
-            <h2 className="text-xl font-bold text-blue-800 mb-4">Your Suggested Diet Plan:</h2>
+            <h2 className="text-xl font-bold text-blue-800 mb-4">
+              Your Suggested Diet Plan:
+            </h2>
             <pre className="whitespace-pre-wrap text-gray-800">{dietPlan}</pre>
           </div>
         )}
