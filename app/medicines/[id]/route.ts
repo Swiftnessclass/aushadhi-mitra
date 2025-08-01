@@ -1,17 +1,17 @@
-// app/api/medicines/[id]/route.ts
-
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/Lib/db";
 import { Medicine } from "@/models/medicine";
 
+// ✅ Correct usage with async params
 export async function GET(
-  _req: NextRequest,
-  { params }: { params: { id: string } }
+  req: NextRequest,
+  context: { params: { id: string } }
 ) {
   try {
     await connectDB();
 
-    const medicine = await Medicine.findById(params.id);
+    const { id } = context.params; // Destructure safely
+    const medicine = await Medicine.findById(id);
 
     if (!medicine) {
       return NextResponse.json({ error: "Medicine not found" }, { status: 404 });
