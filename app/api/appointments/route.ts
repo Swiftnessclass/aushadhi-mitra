@@ -17,19 +17,26 @@ export async function GET(req: Request) {
     const query: {
       userId: string;
       reason?: { $regex: string; $options: string };
-    } = { userId };
+      date?: { $gte: Date };
+    } = {
+      userId,
+      date: { $gte: new Date() }, // only fetch future appointments
+    };
 
     if (reason) {
       query.reason = { $regex: reason, $options: "i" };
     }
 
     const appointments = await Appointment.find(query).sort({ date: 1 });
-    return NextResponse.json({ appointments });
+
+    console.log("✅ Returning appointments:", appointments);
+
+    return NextResponse.json(appointments); // return plain array ✅
   } catch (error) {
     if (error instanceof Error) {
-      console.error("Error fetching appointments:", error.message);
+      console.error("❌ Error fetching appointments:", error.message);
     } else {
-      console.error("Unknown error fetching appointments:", error);
+      console.error("❌ Unknown error fetching appointments:", error);
     }
 
     return NextResponse.json({ error: "Server error" }, { status: 500 });
