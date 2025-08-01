@@ -27,27 +27,27 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-white">
       <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md">
-        <h2 className="text-3xl font-bold text-center mb-6 text-blue-700">Login</h2>
+        <h2 className="text-3xl font-bold text-center mb-6 text-black">Login</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1 text-gray-700">Email</label>
+            <label className="block text-sm font-medium mb-1 text-black">Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
-              className="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1 text-gray-700">Password</label>
+            <label className="block text-sm font-medium mb-1 text-black">Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
-              className="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
               required
             />
           </div>
@@ -58,9 +58,9 @@ export default function LoginPage() {
             Login
           </button>
         </form>
-        <p className="mt-4 text-center text-sm text-gray-600">
+        <p className="mt-4 text-center text-sm text-black">
           Don’t have an account?{" "}
-          <a href="/register" className="text-blue-600 hover:underline">
+          <a href="/register" className="text-black underline hover:opacity-80">
             Register here
           </a>
         </p>

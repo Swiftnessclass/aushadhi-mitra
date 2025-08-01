@@ -24,24 +24,30 @@ export default function Appointments({ appointments }: Props) {
   };
 
   return (
-    <div className="bg-white p-4 rounded shadow">
-      <h2 className="text-lg font-semibold mb-4">Upcoming Appointments</h2>
+    <div className="bg-white p-4 rounded-xl shadow-md">
+  <h2 className="text-lg font-semibold text-blue-900 mb-4">
+    📅 Upcoming Appointments
+  </h2>
 
-      <div className="flex items-center gap-2 mb-3">
-        <input
-          type="text"
-          placeholder="Search by reason (e.g., skin rash)"
-          className="p-2 border border-gray-300 rounded w-full"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button
-          onClick={handleSearch}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        >
-          Search
-        </button>
-      </div>
+  <div className="flex items-center gap-2 mb-3">
+  <input
+  type="text"
+  placeholder="Search by reason (e.g., skin rash)"
+  className="p-2 border border-gray-300 rounded w-full placeholder-gray-500 text-sm text-gray-800"
+  value={search}
+  onChange={(e) => setSearch(e.target.value)}
+/>
+
+    <button
+      onClick={handleSearch}
+      className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+    >
+      Search
+    </button>
+  </div>
+
+ 
+
 
       {filtered.length === 0 ? (
         <p className="text-gray-500">No matching appointments.</p>

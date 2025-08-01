@@ -11,9 +11,10 @@ export default function Welcome({ name }: { name: string }) {
   const tip = healthTips[Math.floor(Math.random() * healthTips.length)];
 
   return (
-    <div className="bg-blue-100 p-4 rounded-xl shadow-md">
-      <h2 className="text-xl font-semibold">Welcome back, {name} 👋</h2>
-      <p className="text-sm mt-2">💡 Health Tip: {tip}</p>
-    </div>
+    <div className="bg-blue-100 p-4 rounded-xl shadow-md space-y-2">
+  <h2 className="text-xl font-semibold text-blue-900">Welcome back, {name} 👋</h2>
+  <p className="text-sm text-gray-700">💡 Health Tip: {tip}</p>
+</div>
+
   );
 }

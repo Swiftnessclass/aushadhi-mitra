@@ -1,7 +1,7 @@
-// app/layout.tsx
 import "./globals.css";
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
+import { ThemeProvider } from "./context/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "Aushadhi Mitra",
@@ -10,11 +10,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
-        {/* Navbar rendered always, will conditionally hide inside */}
-        <Navbar />
-        {children}
+        <ThemeProvider>
+          <Navbar />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

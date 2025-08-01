@@ -38,8 +38,8 @@ export default function DietPlansPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50 py-12 px-6">
-      <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-xl p-8">
+    <main className="min-h-screen  py-12 px-6">
+      <div className="max-w-3xl mx-auto shadow-lg rounded-xl p-8">
         <h1 className="text-3xl font-bold mb-6 text-blue-800 text-center">
           Personalized Diet Plan
         </h1>

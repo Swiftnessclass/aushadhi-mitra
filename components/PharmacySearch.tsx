@@ -104,7 +104,7 @@ export default function PharmacySearch() {
     <div className="max-w-5xl mx-auto p-8">
       <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
         <h1 className="text-3xl font-bold mb-4 text-blue-700">
-          🔍 Pharmacy & Clinic Locator
+           Pharmacy & Clinic Locator
         </h1>
         <p className="text-gray-600 mb-6">
           Find nearby <strong>pharmacies, clinics, and hospitals</strong> using
@@ -112,12 +112,13 @@ export default function PharmacySearch() {
         </p>
 
         <input
-          type="text"
-          placeholder="Enter a place (optional)"
-          value={place}
-          onChange={handlePlaceChange}
-          className="w-full p-3 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+  type="text"
+  placeholder="Enter a place (optional)"
+  value={place}
+  onChange={handlePlaceChange}
+  className="w-full p-3 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+/>
+
 
         <div className="mb-4">
           <label className="block font-medium text-gray-700 mb-1">

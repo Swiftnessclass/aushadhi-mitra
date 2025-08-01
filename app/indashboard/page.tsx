@@ -42,21 +42,24 @@ export default async function DashboardPage() {
 
   return (
     <main className="p-6 space-y-6 max-w-4xl mx-auto">
-      <div className="mb-4">
-        <Link
-          href="/dashboard"
-          className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-        >
-          Go to Dashboard
-        </Link>
-      </div>
-
-      <Welcome name={user.name} />
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <ProfileSummary profile={user} />
-        <Appointments appointments={upcoming} />
-      </div>
+    {/* Back to Dashboard Button */}
+    <div className="mb-4">
+      <Link
+        href="/dashboard"
+        className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+      >
+        Go to Dashboard
+      </Link>
+    </div>
+  
+    {/* Welcome Banner */}
+    <Welcome name={user.name} />
+  
+    {/* Main Grid: Profile + Appointments */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <ProfileSummary profile={user} />
+      <Appointments appointments={upcoming} />
+    </div>
     </main>
   );
 }

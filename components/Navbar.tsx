@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react"; // Don't forget to install: npm i lucide-react
-
+import ThemeToggle from "./ThemeToggle";
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -41,6 +41,10 @@ export default function Navbar() {
 >
   Logout
 </button>
+<div className="ml-auto">
+  <ThemeToggle />
+</div>
+
 
     </>
   );
