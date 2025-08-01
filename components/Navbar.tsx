@@ -60,14 +60,7 @@ export default function Navbar() {
 
         {/* Right-aligned Nav Items */}
         <div className="flex items-center space-x-4">
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-4 items-center">
-            {isLoggedIn ? navLinks : (
-              <Link href="/login" className="px-6 py-2 bg-green-600 text-white rounded-full shadow hover:bg-green-700 transition">
-                Login
-              </Link>
-            )}
-          </div>
+         
 
           {/* Hamburger Icon (Mobile Only) */}
           <div className="md:hidden">
