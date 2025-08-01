@@ -32,6 +32,13 @@ export default function Navbar() {
 
   const navLinks = (
     <>
+     <Link
+          href="/indashboard"
+          className="bg-blue-700 text-white px-4 py-2 rounded-full shadow hover:bg-blue-900 transition text-sm font-medium"
+          title="Go to Profile"
+        >
+          Profile
+        </Link>
       <Link href="/medicines" className="block px-4 py-2 hover:bg-blue-700 rounded">Medicines</Link>
       <Link href="/pharmacy" className="block px-4 py-2 hover:bg-blue-700 rounded">Pharmacy</Link>
       <Link href="/diagnosis" className="block px-4 py-2 hover:bg-blue-700 rounded">Symptom Checker</Link>
