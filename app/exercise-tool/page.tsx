@@ -76,8 +76,8 @@ export default function ExerciseTool() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-green-50 to-white py-12 px-6">
-      <div className="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+    <main className="min-h-screen   py-12 px-6">
+      <div className="max-w-3xl mx-auto  p-8 rounded-xl shadow-lg">
         <h1 className="text-3xl font-bold text-green-700 mb-4">
           Personalized Exercise Plan
         </h1>
