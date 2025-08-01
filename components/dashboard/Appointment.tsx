@@ -1,7 +1,7 @@
 "use client";
 
 import { IAppointment } from "@/models/appointments";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   appointments: IAppointment[];
@@ -9,7 +9,12 @@ type Props = {
 
 export default function Appointments({ appointments }: Props) {
   const [search, setSearch] = useState("");
-  const [filtered, setFiltered] = useState<IAppointment[]>(appointments);
+  const [filtered, setFiltered] = useState<IAppointment[] | null>(null);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handleSearch = () => {
     const results = appointments.filter((apt) =>
@@ -19,39 +24,50 @@ export default function Appointments({ appointments }: Props) {
   };
 
   return (
-    <div className="bg-white p-4 rounded-xl shadow-md">
-      <h2 className="text-lg font-semibold text-blue-900 mb-4">
-        📅 Upcoming Appointments
+    <div className="bg-white p-6 rounded-xl shadow-md border border-blue-100">
+      <h2 className="text-xl font-bold text-blue-800 mb-4">
+        🔍 Search Appointments
       </h2>
 
-      <div className="flex items-center gap-2 mb-3">
+      <div className="flex items-center gap-2 mb-4">
         <input
           type="text"
-          placeholder="Search by reason (e.g., skin rash)"
-          className="p-2 border border-gray-300 rounded w-full placeholder-gray-500 text-sm text-gray-800"
+          placeholder="Search by reason (e.g., fever, rash)"
+          className="p-2 border border-gray-300 rounded w-full placeholder-gray-400 text-gray-800 focus:ring-2 focus:ring-blue-300"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
+
         <button
           onClick={handleSearch}
-          className="bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 text-sm"
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition font-semibold"
         >
           Search
         </button>
       </div>
 
-      {filtered.length === 0 ? (
-        <p className="text-gray-500">No matching appointments.</p>
-      ) : (
-        <ul className="space-y-2">
-          {filtered.map((apt) => (
-            <li key={apt._id?.toString()} className="text-sm">
-              <strong>{apt.doctor}</strong> on{" "}
-              {new Date(apt.date).toLocaleDateString()} at {apt.location} –{" "}
-              <span className="italic text-gray-600">{apt.reason}</span>
-            </li>
-          ))}
-        </ul>
+      {filtered !== null && (
+        <>
+          {filtered.length === 0 ? (
+            <p className="text-red-500 font-medium">No matching appointments found.</p>
+          ) : (
+            <ul className="space-y-3">
+              {filtered.map((apt) => (
+                <li
+                  key={apt._id?.toString()}
+                  className="bg-blue-50 p-3 rounded shadow-sm border border-blue-100"
+                >
+                  <p className="text-blue-900 font-semibold">{apt.doctor}</p>
+                  <p className="text-sm text-gray-700">
+                    {isClient ? new Date(apt.date).toLocaleString() : "Loading..."} at{" "}
+                    <span className="text-gray-600">{apt.location}</span>
+                  </p>
+                  <p className="text-sm text-indigo-700 italic">{apt.reason}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+        </>
       )}
     </div>
   );
