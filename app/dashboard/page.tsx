@@ -48,6 +48,7 @@ export default function Home() {
             >
               Exercise Recommendations
             </Link>
+            
           </div>
         </div>
 
