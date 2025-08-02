@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Appointments from "@/components/dashboard/Appointment";
-import { IAppointment } from "@/models/appointments";
+import { SerializedAppointment } from "@/models/appointments"; // ✅ use plain type
 
 export default function AppointmentsPage() {
-  const [appointments, setAppointments] = useState<IAppointment[]>([]);
+  const [appointments, setAppointments] = useState<SerializedAppointment[]>([]);
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState<string | null>(null);
 
@@ -14,9 +14,9 @@ export default function AppointmentsPage() {
     setUserId(storedUserId);
 
     if (storedUserId) {
-      fetch(`/api/appoint?userId=${storedUserId}`) // ✅ match API route filename
+      fetch(`/api/appoint?userId=${storedUserId}`)
         .then((res) => res.json())
-        .then((data: IAppointment[]) => {
+        .then((data: SerializedAppointment[]) => {
           setAppointments(data);
         })
         .catch((err) => {

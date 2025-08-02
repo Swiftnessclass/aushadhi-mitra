@@ -29,16 +29,21 @@ export async function GET(req: Request) {
 
     const appointments = await Appointment.find(query).sort({ date: 1 });
 
-    console.log("✅ Returning appointments:", appointments);
+    // ✅ Convert ObjectId and Date to strings
+    const serializedAppointments = appointments.map((apt) => ({
+      _id: apt._id.toString(),
+      userId: apt.userId?.toString(),
+      doctor: apt.doctor,
+      date: apt.date.toISOString(),
+      location: apt.location,
+      reason: apt.reason,
+    }));
 
-    return NextResponse.json(appointments); // return plain array ✅
+    console.log("✅ Returning appointments:", serializedAppointments);
+
+    return NextResponse.json(serializedAppointments);
   } catch (error) {
-    if (error instanceof Error) {
-      console.error("❌ Error fetching appointments:", error.message);
-    } else {
-      console.error("❌ Unknown error fetching appointments:", error);
-    }
-
+    console.error("❌ Error fetching appointments:", error instanceof Error ? error.message : error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
