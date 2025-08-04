@@ -1,8 +1,8 @@
 // components/dashboard/Appointment.tsx
 "use client";
 
+import { useState } from "react";
 import { SerializedAppointment } from "@/models/appointments";
-import { useEffect, useState } from "react";
 
 type Props = {
   appointments: SerializedAppointment[];
@@ -11,13 +11,27 @@ type Props = {
 export default function Appointments({ appointments }: Props) {
   const [search, setSearch] = useState("");
   const [filtered, setFiltered] = useState<SerializedAppointment[] | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleSearch = () => {
-    const results = appointments.filter((apt) =>
-      apt.reason.toLowerCase().includes(search.toLowerCase())
-    );
-    setFiltered(results);
+  const handleSearch = async () => {
+    const trimmed = search.trim();
+    if (!trimmed) return;
+
+    try {
+      setLoading(true);
+      const res = await fetch(`/api/appointments?reason=${encodeURIComponent(trimmed)}`);
+      if (!res.ok) throw new Error("API Error");
+
+      const data: SerializedAppointment[] = await res.json();
+      setFiltered(data);
+    } catch (err) {
+      console.error("Search error:", err);
+    } finally {
+      setLoading(false);
+    }
   };
+
+  const displayAppointments = filtered !== null ? filtered : [];
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-md border border-blue-100">
@@ -39,12 +53,14 @@ export default function Appointments({ appointments }: Props) {
         </button>
       </div>
 
+      {loading && <p className="text-blue-500 mb-2">Searching...</p>}
+
       {filtered !== null && (
         <ul className="space-y-3">
-          {filtered.length === 0 ? (
+          {displayAppointments.length === 0 ? (
             <p className="text-red-500 font-medium">No matching appointments found.</p>
           ) : (
-            filtered.map((apt) => (
+            displayAppointments.map((apt) => (
               <li
                 key={apt._id}
                 className="bg-blue-50 p-3 rounded shadow-sm border border-blue-100"

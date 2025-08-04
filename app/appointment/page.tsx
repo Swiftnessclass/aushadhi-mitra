@@ -14,7 +14,7 @@ export default function AppointmentsPage() {
     setUserId(storedUserId);
 
     if (storedUserId) {
-      fetch(`/api/appoint?userId=${storedUserId}`)
+      fetch(`/api/appointments?userId=${storedUserId}`)
         .then((res) => res.json())
         .then((data: SerializedAppointment[]) => {
           setAppointments(data);
