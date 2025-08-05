@@ -64,7 +64,7 @@ export default function DiagnosisPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
-      <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
+      <div className=" rounded-2xl shadow-lg p-8 border border-gray-200">
         <h1 className="text-3xl font-bold text-blue-700 mb-6 text-center">
           🩺 Aushadhi Mitra -Diagnosis
         </h1>

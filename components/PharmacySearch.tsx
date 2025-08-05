@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { Hospital, LocateIcon, MapPin, Search } from "lucide-react";
 
 type Place = {
   lat: number;
@@ -88,102 +89,99 @@ export default function PharmacySearch() {
     }
   };
 
-  const handlePlaceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPlace(e.target.value);
-  };
-
-  const handleRadiusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRadius(Number(e.target.value));
-  };
-
-  const handleIncludeHospitalsChange = () => {
-    setIncludeHospitals((prev) => !prev);
-  };
-
   return (
-    <div className="max-w-5xl mx-auto p-8">
-      <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
-        <h1 className="text-3xl font-bold mb-4 text-blue-700">
-           Pharmacy & Clinic Locator
+    <div className="max-w-5xl mx-auto p-6">
+      <div className=" rounded-3xl shadow-xl p-10 border border-gray-100">
+        <h1 className="text-4xl font-bold text-blue-700 mb-2 flex items-center gap-2">
+          <LocateIcon className="w-8 h-8" />
+          Pharmacy & Clinic Locator
         </h1>
-        <p className="text-gray-600 mb-6">
-          Find nearby <strong>pharmacies, clinics, and hospitals</strong> using
-          a place name or your current location.
+        <p className="text-gray-700 mb-6">
+           Easily find <strong>pharmacies, clinics, and hospitals</strong> near you
+          by entering a place or using your current location.
         </p>
 
+        {/* Place input */}
         <input
-  type="text"
-  placeholder="Enter a place (optional)"
-  value={place}
-  onChange={handlePlaceChange}
-  className="w-full p-3 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-/>
+          type="text"
+          placeholder="📍 Enter a location (optional)"
+          value={place}
+          onChange={(e) => setPlace(e.target.value)}
+          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-black mb-5"
+        />
 
-
-        <div className="mb-4">
-          <label className="block font-medium text-gray-700 mb-1">
-            Search Radius:{" "}
-            <span className="text-blue-600">{radius} meters</span>
+        {/* Radius dropdown */}
+        <div className="mb-5">
+          <label className="block mb-2 text-gray-700 font-medium">
+            Radius Distance:
           </label>
-          <input
-            type="range"
-            min={100}
-            max={5000}
-            step={100}
+          <select
             value={radius}
-            onChange={handleRadiusChange}
-            className="w-full accent-blue-600"
-          />
+            onChange={(e) => setRadius(Number(e.target.value))}
+            className="w-full px-4 py-3 border rounded-xl bg-white text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            {[500, 1000, 2000, 3000, 4000, 5000].map((r) => (
+              <option key={r} value={r}>
+                {r} meters
+              </option>
+            ))}
+          </select>
         </div>
 
-        <div className="mb-6 flex items-center gap-2">
+        {/* Include hospitals checkbox */}
+        <div className="mb-6 flex items-center gap-3">
           <input
             type="checkbox"
             checked={includeHospitals}
-            onChange={handleIncludeHospitalsChange}
+            onChange={() => setIncludeHospitals((prev) => !prev)}
             id="includeHospitals"
-            className="accent-blue-600"
+            className="accent-blue-600 w-5 h-5"
           />
-          <label htmlFor="includeHospitals" className="text-gray-700">
+          <label htmlFor="includeHospitals" className="text-gray-700 font-medium">
             Include clinics and hospitals
           </label>
         </div>
 
+        {/* Search button */}
         <button
           onClick={handleSearch}
           disabled={loading}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition disabled:opacity-50"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl shadow-md transition disabled:opacity-50 flex items-center justify-center gap-2"
         >
+          <Search className="w-5 h-5" />
           {loading ? "Searching..." : "Search Nearby"}
         </button>
 
+        {/* Message */}
         {message && (
-          <p className="mt-4 text-red-600 font-medium text-center">{message}</p>
+          <p className="mt-4 text-red-600 font-semibold text-center">{message}</p>
         )}
       </div>
 
+      {/* Results */}
       {results.length > 0 && (
-        <div className="mt-8">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800">
-            📍 Results:
+        <div className="mt-10">
+          <h2 className="text-2xl font-semibold mb-6 text-blue-800">
+            📍 Nearby Facilities:
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {results.map((place, idx) => (
               <div
                 key={idx}
-                className="bg-white p-5 border border-gray-200 rounded-lg shadow hover:shadow-md transition"
+                className="bg-white border border-gray-200 rounded-2xl p-5 shadow hover:shadow-lg transition"
               >
-                <h3 className="font-bold text-lg text-blue-700">
+                <h3 className="font-bold text-lg text-blue-700 mb-1 flex items-center gap-1">
+                  <Hospital className="w-5 h-5" />
                   {place.tags?.name || "Unnamed Facility"}
                 </h3>
-                <p className="text-gray-500 text-sm mb-2">
+                <p className="text-gray-600 text-sm mb-2">
                   Type: {place.tags?.amenity || "Unknown"}
                 </p>
                 <a
-                  className="text-blue-500 text-sm underline"
                   href={`https://maps.google.com/?q=${place.lat},${place.lon}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="text-blue-500 text-sm underline"
                 >
                   View on Google Maps
                 </a>

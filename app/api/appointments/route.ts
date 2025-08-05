@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
     await connectDB();
 
     const appointments = await Appointment.find({
-      reason: { $regex: reason, $options: "i" }, // Case-insensitive partial match
+      reason: { $regex: reason, $options: "i" }, 
     });
 
     return NextResponse.json(appointments);
