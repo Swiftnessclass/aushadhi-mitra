@@ -10,7 +10,7 @@ export default function Home() {
 
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex flex-col justify-between">
+    <main className="min-h-screen flex flex-col justify-between">
       
       
       {/* Hero Section */}
