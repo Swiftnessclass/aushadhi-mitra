@@ -83,7 +83,11 @@ export default function Navbar() {
     <div className="flex justify-end mb-4">
       <X onClick={() => setMenuOpen(false)} className="w-6 h-6 cursor-pointer" />
     </div>
-   
+    <div className="flex flex-col space-y-2">
+      {isLoggedIn ? navLinks : (
+        <Link href="/login" className="block px-4 py-2 hover:bg-blue-600 rounded">Login</Link>
+      )}
+    </div>
   </div>
 )}
 
