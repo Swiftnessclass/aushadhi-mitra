@@ -21,10 +21,10 @@
 
 > _(Add actual screenshots in `/public/screenshots` and link them here)_
 
-![Homepage](./public/screenshots/homepage.png)
-![Medicine Search](./public/screenshots/medicine-search.png)
-![Purchase Form](./public/screenshots/purchase-form.png)
-![Symptom Checker](./public/screenshots/symptom-checker.png)
+![Homepage](./public/screenshots/homepage.PNG)
+![Medicine Search](./public/screenshots/Medicine-search.PNG)
+![Schemes](./public/screenshots/Schemes.PNG)
+![Symptom Checker](./public/screenshots/symptom-checker.PNG)
 
 ---
 
@@ -74,7 +74,6 @@ EMAIL_PASS=your_gmail_app_password
 ```
 > ⚠️ Use Gmail App Passwords if using Gmail for Nodemailer.
 
----
 
 ---
 
