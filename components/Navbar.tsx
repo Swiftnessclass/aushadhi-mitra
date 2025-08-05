@@ -72,7 +72,9 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Nav */}
-       
+        <div className="hidden md:flex space-x-4 items-center">
+          {isLoggedIn ? navLinks : <Link href="/login" className="hover:underline">Login</Link>}
+        </div>
       </div>
 
       {/* Mobile Dropdown */}
