@@ -6,6 +6,7 @@ export interface IAppointment extends Document {
   date: Date;
   location: string;
   reason: string;
+  registeredUsers: { type: [String], default: [] }
 }
 
 // ✅ Serialized version for Client Components
@@ -16,6 +17,8 @@ export interface SerializedAppointment {
   date: string;
   location: string;
   reason: string;
+
+
 }
 
 const appointmentSchema = new Schema<IAppointment>({
@@ -24,6 +27,8 @@ const appointmentSchema = new Schema<IAppointment>({
   date: { type: Date, required: true },
   location: { type: String, required: true },
   reason: { type: String, required: true },
+  registeredUsers: { type: [String], default: [] }
+
 });
 
 const Appointment =

@@ -12,19 +12,31 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+  
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+        headers: { "Content-Type": "application/json" },
+      });
+  
+      const data = await res.json();
+console.log("Login response:", data);
+if (res.ok && data.userId) {
+  localStorage.setItem("userId", data.userId);
+  router.push("/dashboard");
+} else {
+  alert(data.error || "Invalid login");
+}
 
-    const res = await fetch("/api/login", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-      headers: { "Content-Type": "application/json" },
-    });
-
-    if (res.ok) {
-      router.push("/dashboard");
-    } else {
-      alert("Invalid login");
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Something went wrong during login.");
+    } finally {
+      setLoading(false);
     }
   };
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-white">

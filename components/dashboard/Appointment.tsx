@@ -1,8 +1,8 @@
-// components/dashboard/Appointment.tsx
 "use client";
 
 import { useState } from "react";
 import { SerializedAppointment } from "@/models/appointments";
+import Link from "next/link";
 
 type Props = {
   appointments: SerializedAppointment[];
@@ -31,7 +31,7 @@ export default function Appointments({ appointments }: Props) {
     }
   };
 
-  const displayAppointments = filtered !== null ? filtered : [];
+  const displayAppointments = filtered !== null ? filtered : appointments;
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-md border border-blue-100">
@@ -71,6 +71,16 @@ export default function Appointments({ appointments }: Props) {
                   <span className="text-gray-600">{apt.location}</span>
                 </p>
                 <p className="text-sm text-indigo-700 italic">{apt.reason}</p>
+
+                {/* ✅ Register Button */}
+                <div className="mt-3">
+                  <Link
+                    href={`/appointment/register/${apt._id}`}
+                    className="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+                  >
+                    Register
+                  </Link>
+                </div>
               </li>
             ))
           )}

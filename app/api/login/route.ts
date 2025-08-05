@@ -21,11 +21,17 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Incorrect password" }, { status: 401 });
     }
 
+    // ✅ Generate JWT token
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, {
       expiresIn: "1d",
     });
 
-    const res = NextResponse.json({ message: "Login successful" });
+    // ✅ Include token as cookie + return userId in response
+    const res = NextResponse.json({
+      message: "Login successful",
+      userId: user._id.toString(), // ✅ add userId to response body
+    });
+
     res.cookies.set("token", token, {
       httpOnly: true,
       path: "/",

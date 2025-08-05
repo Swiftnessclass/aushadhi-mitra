@@ -42,6 +42,18 @@ const [loading,setLoading]=useState(false);
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleCancel = () => {
+    setShowPurchaseForm(false);     // Hide the form
+    setSelectedMedicine(null);      // Deselect the medicine
+    setFormData({                   // Optional: Reset form data
+      name: "",
+      address: "",
+      location: "",
+      email: ""
+    });
+  };
+  
+
   // Handle purchase form submission
   const handlePurchaseSubmit = async () => {
     setLoading(true);
@@ -126,13 +138,24 @@ const [loading,setLoading]=useState(false);
   className="w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
 />
 
-<button
-  className={`w-full py-2 rounded text-white ${loading ? 'bg-gray-400' : 'bg-green-600 hover:bg-green-700'}`}
-  onClick={handlePurchaseSubmit}
-  disabled={loading}
->
-  {loading ? "Submitting..." : "Submit Purchase"}
-</button>
+<div className="flex gap-2">
+  <button
+    className={`w-full py-2 rounded text-white ${loading ? 'bg-gray-400' : 'bg-green-600 hover:bg-green-700'}`}
+    onClick={handlePurchaseSubmit}
+    disabled={loading}
+  >
+    {loading ? "Submitting..." : "Submit Purchase"}
+  </button>
+
+  <button
+    className="w-full py-2 rounded text-white bg-red-500 hover:bg-red-600"
+    onClick={handleCancel}
+    disabled={loading}
+  >
+    Cancel
+  </button>
+</div>
+
 
         </div>
       </div>
