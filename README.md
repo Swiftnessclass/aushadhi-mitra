@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🩺 Aushadhi Mitra
 
-## Getting Started
+**Aushadhi Mitra** is a government-style medical portal built using **Next.js** and **MongoDB**, designed to help citizens easily access affordable medicines, locate nearby Jan Aushadhi stores, and explore government health schemes. It empowers users with essential tools like medicine search, symptom checker, facility locator, and purchase confirmation via email.
 
-First, run the development server:
+
+---
+
+## 📌 Features
+
+- 🔍 **Medicine Search** – Search by name or disease to get pricing, usage, and alternatives.
+- 🛒 **Purchase Confirmation** – Submit name, address, and email to receive order confirmation via email.
+- 📍 **Nearby Locator** – Locate Jan Aushadhi stores, clinics, hospitals using Overpass API & Nominatim.
+- 📑 **Government Scheme Tracker** – Explore health schemes by category (e.g., Women, Seniors).
+- 🧠 **AI-Powered Symptom Checker** – Get condition suggestions based on symptom input using AI.
+- 🔐 **User Authentication** – Secure login & registration with protected routes.
+- 📱 **Responsive Design** – Mobile-friendly and clean UI with Tailwind CSS.
+
+---
+
+## 🖼️ Screenshots
+
+> _(Add actual screenshots in `/public/screenshots` and link them here)_
+
+![Homepage](./public/screenshots/homepage.png)
+![Medicine Search](./public/screenshots/medicine-search.png)
+![Purchase Form](./public/screenshots/purchase-form.png)
+![Symptom Checker](./public/screenshots/symptom-checker.png)
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js (App Router), TypeScript, Tailwind CSS
+- **Backend**: Node.js, API Routes, MongoDB
+- **Email**: Nodemailer (Gmail SMTP)
+- **Geo APIs**: OpenStreetMap + Overpass API + Nominatim
+- **AI**: Gemini or AI71 for symptom checking
+
+---
+
+
+---
+
+## 🧪 Installation
 
 ```bash
+# Clone the repo
+git clone https://github.com/your-username/aushadhi-mitra.git
+
+# Navigate into the project
+cd aushadhi-mitra
+
+# Install dependencies
+npm install
+
+# Setup environment variables
+cp .env.example .env
+
+# Run the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔐 .env Configuration
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Rename `.env.example` to `.env` and update values:
 
-## Learn More
+```env
+MONGODB_URI=mongodb+srv://your_user:password@cluster.mongodb.net/aushadhi
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASS=your_gmail_app_password
 
-To learn more about Next.js, take a look at the following resources:
+```
+> ⚠️ Use Gmail App Passwords if using Gmail for Nodemailer.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🌐 Acknowledgments
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [Jan Aushadhi Scheme](https://janaushadhi.gov.in/)
+- [OpenStreetMap](https://www.openstreetmap.org/)
+- [Gemini AI / AI71](https://ai.google.dev/)
+- [Next.js Documentation](https://nextjs.org/)
+- [MongoDB Atlas](https://www.mongodb.com/atlas)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+> 🔗 **Built with ❤️ for public health and affordable access to medicine.**
