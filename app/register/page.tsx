@@ -14,19 +14,28 @@ export default function Register() {
     location: "",
     language: "",
   });
+  const [loading, setLoading] = useState(false); // Loader state
+
   async function handleRegister(e: React.FormEvent) {
     e.preventDefault();
+    setLoading(true); // Start loader
 
-    const res = await fetch("/api/register", {
-      method: "POST",
-      body: JSON.stringify(form),
-      headers: { "Content-Type": "application/json" },
-    });
+    try {
+      const res = await fetch("/api/register", {
+        method: "POST",
+        body: JSON.stringify(form),
+        headers: { "Content-Type": "application/json" },
+      });
 
-    if (res.ok) router.push("/login");
-    else alert("Registration failed");
+      if (res.ok) router.push("/login");
+      else alert("Registration failed");
+    } catch (err) {
+      console.error("Registration error:", err);
+      alert("Something went wrong");
+    } finally {
+      setLoading(false); // Stop loader
+    }
   }
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-blue-50 px-4">
       <form
@@ -144,13 +153,15 @@ export default function Register() {
       placeholder="e.g. English, Hindi"
     />
   </div>
-
   <button
-    type="submit"
-    className="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 transition"
-  >
-    Register
-  </button>
+          type="submit"
+          className={`w-full font-semibold py-2 px-4 rounded transition 
+            ${loading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 text-white"}`}
+          disabled={loading}
+        >
+          {loading ? "Registering..." : "Register"}
+        </button>
+
 
 
        

@@ -6,10 +6,12 @@ import { useRouter } from "next/navigation";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const[loading,setLoading]=useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     const res = await fetch("/api/login", {
       method: "POST",
@@ -53,9 +55,11 @@ export default function LoginPage() {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition duration-200"
+            disabled={loading}
+            className={`w-full font-semibold py-2 px-4 rounded-md transition duration-200 
+              ${loading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 text-white"}`}
           >
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
         <p className="mt-4 text-center text-sm text-black">
