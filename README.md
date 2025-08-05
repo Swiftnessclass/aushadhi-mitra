@@ -25,6 +25,7 @@
 ![Medicine Search](./public/screenshots/Medicine-search.PNG)
 ![Schemes](./public/screenshots/Schemes.PNG)
 ![Symptom Checker](./public/screenshots/symptom-checker.PNG)
+![Profile](./public/screenshots/Profile.PNG)
 
 ---
 
