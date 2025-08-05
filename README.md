@@ -74,7 +74,6 @@ EMAIL_PASS=your_gmail_app_password
 ```
 > ⚠️ Use Gmail App Passwords if using Gmail for Nodemailer.
 
----
 
 ---
 
