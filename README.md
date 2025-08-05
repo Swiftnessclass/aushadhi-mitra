@@ -22,8 +22,8 @@
 > _(Add actual screenshots in `/public/screenshots` and link them here)_
 
 ![Homepage](./public/screenshots/homepage.png)
-![Medicine Search](./public/screenshots/medicine-search.png)
-![Purchase Form](./public/screenshots/purchase-form.png)
+![Medicine Search](./public/screenshots/Medicine-search.png)
+![Purchase Form](./public/screenshots/Schemes.png)
 ![Symptom Checker](./public/screenshots/symptom-checker.png)
 
 ---
