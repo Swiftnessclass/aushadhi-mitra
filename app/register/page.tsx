@@ -28,6 +28,7 @@ export default function Register() {
       });
 
       if (res.ok) router.push("/login");
+      
       else alert("Registration failed");
     } catch (err) {
       console.error("Registration error:", err);

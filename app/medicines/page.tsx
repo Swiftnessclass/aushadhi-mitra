@@ -14,9 +14,9 @@ export default function MedicinesPage() {
   const [medicines, setMedicines] = useState<Medicine[]>([]);
   const [selectedMedicine, setSelectedMedicine] = useState<Medicine | null>(null);
   const [showPurchaseForm, setShowPurchaseForm] = useState(false);
-  const [formData, setFormData] = useState({ name: "", address: "", location: "" });
+  const [formData, setFormData] = useState({ name: "", address: "", location: "",email:"" });
   const [submitted, setSubmitted] = useState(false);
-
+const [loading,setLoading]=useState(false);
   // Fetch all medicines
   useEffect(() => {
     fetch("/api/medicines")
@@ -44,33 +44,39 @@ export default function MedicinesPage() {
 
   // Handle purchase form submission
   const handlePurchaseSubmit = async () => {
+    setLoading(true);
     try {
-      // Simulate sending email (POST to your email service API here)
       await fetch("/api/send-email", {
         method: "POST",
-        body: JSON.stringify({
-          ...formData,
-          medicine: selectedMedicine?.name,
-          price: selectedMedicine?.price,
-        }),
         headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email, // 🔴 Email is missing from form; hardcoded or add an input
+          address: formData.address,
+          medicine: {
+            name: selectedMedicine?.name,
+          },
+        }),
       });
-
+  
       setSubmitted(true);
-      setFormData({ name: "", address: "", location: "" });
+      setFormData({ name: "", address: "", location: "",  email: "" });
       setSelectedMedicine(null);
       setShowPurchaseForm(false);
     } catch (err) {
       console.error("Error sending email:", err);
+    }finally{
+      setLoading(false);
     }
   };
+  
 
   // ✅ Confirmation popup
   if (submitted) {
     return (
       <div className="p-8 text-center">
         <h1 className="text-2xl font-bold text-green-600 mb-4">✅ Order Submitted!</h1>
-        <p className="text-gray-700">A confirmation email has been sent to your inbox.</p>
+        <p className="text-gray-700"> confirmation email has been sent </p>
         <button
           className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
           onClick={() => setSubmitted(false)}
@@ -111,12 +117,23 @@ export default function MedicinesPage() {
             onChange={handleChange}
             className="w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <button
-            className="bg-green-600 text-white w-full py-2 rounded hover:bg-green-700"
-            onClick={handlePurchaseSubmit}
-          >
-            Submit Purchase
-          </button>
+          <input
+  type="email"
+  name="email"
+  placeholder="Your Email"
+  value={formData.email}
+  onChange={handleChange}
+  className="w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+/>
+
+<button
+  className={`w-full py-2 rounded text-white ${loading ? 'bg-gray-400' : 'bg-green-600 hover:bg-green-700'}`}
+  onClick={handlePurchaseSubmit}
+  disabled={loading}
+>
+  {loading ? "Submitting..." : "Submit Purchase"}
+</button>
+
         </div>
       </div>
     );
