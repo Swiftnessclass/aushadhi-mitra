@@ -19,7 +19,7 @@
 
 ## 🖼️ Screenshots
 
-> _(Add actual screenshots in `/public/screenshots` and link them here)_
+
 
 ![Homepage](./public/screenshots/homepage.PNG)
 ![Medicine Search](./public/screenshots/Medicine-search.PNG)
