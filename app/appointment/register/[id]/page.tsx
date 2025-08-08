@@ -3,12 +3,19 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+interface Appointment {
+  doctor: string;
+  reason: string;
+  date: string;
+  location: string;
+}
+
 export default function RegisterAppointmentPage() {
   const router = useRouter();
   const params = useParams();
   const id = params.id as string;
 
-  const [appointment, setAppointment] = useState<any>(null);
+  const [appointment, setAppointment] = useState<Appointment | null>(null);
   const [loading, setLoading] = useState(true);
   const [registering, setRegistering] = useState(false);
   const [message, setMessage] = useState("");
@@ -20,10 +27,15 @@ export default function RegisterAppointmentPage() {
       try {
         const res = await fetch(`/api/appointments/${id}`);
         if (!res.ok) throw new Error("Failed to fetch appointment");
-        const data = await res.json();
+
+        const data: Appointment = await res.json();
         setAppointment(data);
-      } catch (err: any) {
-        setMessage("❌ " + err.message);
+      } catch (err) {
+        if (err instanceof Error) {
+          setMessage("❌ " + err.message);
+        } else {
+          setMessage("❌ An unknown error occurred.");
+        }
       } finally {
         setLoading(false);
       }
@@ -51,19 +63,20 @@ export default function RegisterAppointmentPage() {
       if (!res.ok) throw new Error(result.message);
 
       setMessage("✅ Registered successfully!");
-
-      // Optionally redirect after success:
-       setTimeout(() => router.push("/indashboard"), 2000);
-    } catch (err: any) {
-      setMessage("❌ " + err.message);
+      setTimeout(() => router.push("/indashboard"), 2000);
+    } catch (err) {
+      if (err instanceof Error) {
+        setMessage("❌ " + err.message);
+      } else {
+        setMessage("❌ An unknown error occurred.");
+      }
     } finally {
       setRegistering(false);
     }
   };
 
   const handleCancel = () => {
-    // Go back to the dashboard or appointments page
-    router.push("/indashboard"); // Or wherever you'd like
+    router.push("/indashboard");
   };
 
   if (loading) return <p className="p-4">Loading appointment details...</p>;

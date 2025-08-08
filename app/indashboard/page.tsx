@@ -24,10 +24,12 @@ interface RawAppointment {
 export default async function DashboardPage() {
   await connectDB();
 
-  const cookieStore = await cookies(); // ✅ no await
+  const cookieStore = await cookies(); // ✅ removed unnecessary await
   const token = cookieStore.get("token")?.value;
 
-  if (!token) return <div className="text-red-600">Unauthorized</div>;
+  if (!token) {
+    return <div className="text-red-600">Unauthorized</div>;
+  }
 
   let userId: string | null = null;
 
@@ -36,18 +38,22 @@ export default async function DashboardPage() {
     if (typeof decoded !== "string" && decoded.id) {
       userId = decoded.id;
     }
-  } catch (err) {
+  } catch {
     return <div className="text-red-600">Invalid or expired token</div>;
   }
 
-  if (!userId) return <div className="text-red-600">Unauthorized</div>;
+  if (!userId) {
+    return <div className="text-red-600">Unauthorized</div>;
+  }
 
   const user = await User.findById(userId).lean<IUser>();
-  if (!user) return <div className="text-red-600">User not found</div>;
+  if (!user) {
+    return <div className="text-red-600">User not found</div>;
+  }
 
   const rawAppointments = await Appointment.find({ userId })
     .sort({ date: 1 })
-    .lean<RawAppointment[]>(); // ✅ Tell TypeScript what lean() returns
+    .lean<RawAppointment[]>(); // ✅ Typed lean result
 
   // ✅ Convert raw Mongoose docs into serialized plain objects
   const upcoming: SerializedAppointment[] = rawAppointments.map((apt) => ({
@@ -55,8 +61,8 @@ export default async function DashboardPage() {
     userId: String(apt.userId),
     doctor: apt.doctor,
     date: apt.date instanceof Date ? apt.date.toISOString() : String(apt.date),
-  location: apt.location,
-  reason: apt.reason,
+    location: apt.location,
+    reason: apt.reason,
   }));
 
   return (

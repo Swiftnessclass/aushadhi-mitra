@@ -74,9 +74,9 @@ export default function PharmacySearch() {
         body: JSON.stringify(body),
       });
 
-      const data = (await res.json()) as PharmacyApiResponse;
+      const data: PharmacyApiResponse = await res.json();
 
-      if (data.results && data.results.length > 0) {
+      if (data.results?.length > 0) {
         setResults(data.results);
       } else {
         setMessage("❌ No nearby pharmacies found.");
@@ -91,13 +91,13 @@ export default function PharmacySearch() {
 
   return (
     <div className="max-w-5xl mx-auto p-6">
-      <div className=" rounded-3xl shadow-xl p-10 border border-gray-100">
+      <div className="rounded-3xl shadow-xl p-10 border border-gray-100">
         <h1 className="text-4xl font-bold text-blue-700 mb-2 flex items-center gap-2">
           <LocateIcon className="w-8 h-8" />
           Pharmacy & Clinic Locator
         </h1>
         <p className="text-gray-700 mb-6">
-           Easily find <strong>pharmacies, clinics, and hospitals</strong> near you
+          Easily find <strong>pharmacies, clinics, and hospitals</strong> near you
           by entering a place or using your current location.
         </p>
 
@@ -165,20 +165,20 @@ export default function PharmacySearch() {
             📍 Nearby Facilities:
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {results.map((place, idx) => (
+            {results.map((facility, idx) => (
               <div
                 key={idx}
                 className="bg-white border border-gray-200 rounded-2xl p-5 shadow hover:shadow-lg transition"
               >
                 <h3 className="font-bold text-lg text-blue-700 mb-1 flex items-center gap-1">
-                  <Hospital className="w-5 h-5" />
-                  {place.tags?.name || "Unnamed Facility"}
+                  <MapPin className="w-5 h-5 text-blue-500" />
+                  {facility.tags?.name || "Unnamed Facility"}
                 </h3>
                 <p className="text-gray-600 text-sm mb-2">
-                  Type: {place.tags?.amenity || "Unknown"}
+                  Type: {facility.tags?.amenity || "Unknown"}
                 </p>
                 <a
-                  href={`https://maps.google.com/?q=${place.lat},${place.lon}`}
+                  href={`https://maps.google.com/?q=${facility.lat},${facility.lon}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-500 text-sm underline"

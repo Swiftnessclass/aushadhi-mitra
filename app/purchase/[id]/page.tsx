@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type Medicine = {
@@ -12,7 +12,7 @@ type Medicine = {
 
 export default function PurchasePage() {
   const { id } = useParams();
-  const router = useRouter();
+ 
   const [medicine, setMedicine] = useState<Medicine | null>(null);
 
   useEffect(() => {
