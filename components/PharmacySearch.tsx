@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Hospital, LocateIcon, MapPin, Search } from "lucide-react";
+import { LocateIcon, MapPin, Search, Hospital } from "lucide-react";
 
 type Place = {
   lat: number;
@@ -68,9 +68,7 @@ export default function PharmacySearch() {
     try {
       const res = await fetch("/api/pharmacies", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
 
@@ -79,7 +77,7 @@ export default function PharmacySearch() {
       if (data.results?.length > 0) {
         setResults(data.results);
       } else {
-        setMessage("❌ No nearby pharmacies found.");
+        setMessage("❌ No nearby pharmacies, clinics, or hospitals found.");
       }
     } catch (error) {
       console.error("Fetch error:", error);
@@ -94,7 +92,7 @@ export default function PharmacySearch() {
       <div className="rounded-3xl shadow-xl p-10 border border-gray-100">
         <h1 className="text-4xl font-bold text-blue-700 mb-2 flex items-center gap-2">
           <LocateIcon className="w-8 h-8" />
-          Pharmacy & Clinic Locator
+          Pharmacy, Clinic & Hospital Locator
         </h1>
         <p className="text-gray-700 mb-6">
           Easily find <strong>pharmacies, clinics, and hospitals</strong> near you
@@ -138,7 +136,7 @@ export default function PharmacySearch() {
             className="accent-blue-600 w-5 h-5"
           />
           <label htmlFor="includeHospitals" className="text-gray-700 font-medium">
-            Include clinics and hospitals
+            Include clinics and hospitals in search
           </label>
         </div>
 
@@ -165,28 +163,36 @@ export default function PharmacySearch() {
             📍 Nearby Facilities:
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {results.map((facility, idx) => (
-              <div
-                key={idx}
-                className="bg-white border border-gray-200 rounded-2xl p-5 shadow hover:shadow-lg transition"
-              >
-                <h3 className="font-bold text-lg text-blue-700 mb-1 flex items-center gap-1">
-                  <MapPin className="w-5 h-5 text-blue-500" />
-                  {facility.tags?.name || "Unnamed Facility"}
-                </h3>
-                <p className="text-gray-600 text-sm mb-2">
-                  Type: {facility.tags?.amenity || "Unknown"}
-                </p>
-                <a
-                  href={`https://maps.google.com/?q=${facility.lat},${facility.lon}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-500 text-sm underline"
+            {results.map((facility, idx) => {
+              const isHospital =
+                facility.tags?.amenity?.toLowerCase() === "hospital";
+              return (
+                <div
+                  key={idx}
+                  className="bg-white border border-gray-200 rounded-2xl p-5 shadow hover:shadow-lg transition"
                 >
-                  View on Google Maps
-                </a>
-              </div>
-            ))}
+                  <h3 className="font-bold text-lg text-blue-700 mb-1 flex items-center gap-1">
+                    {isHospital ? (
+                      <Hospital className="w-5 h-5 text-red-500" />
+                    ) : (
+                      <MapPin className="w-5 h-5 text-blue-500" />
+                    )}
+                    {facility.tags?.name || "Unnamed Facility"}
+                  </h3>
+                  <p className="text-gray-600 text-sm mb-2">
+                    Type: {facility.tags?.amenity || "Unknown"}
+                  </p>
+                  <a
+                    href={`https://maps.google.com/?q=${facility.lat},${facility.lon}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 text-sm underline"
+                  >
+                    View on Google Maps
+                  </a>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
