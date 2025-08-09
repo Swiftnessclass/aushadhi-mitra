@@ -12,9 +12,17 @@ export default function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const cookies = document.cookie;
-    console.log(cookies);
-    setIsLoggedIn(cookies.includes("token="));
+   (async () => {
+     try {
+      const res = await fetch("/api/is-authenticated");
+      if (!res.ok) return;
+      const data = await res.json();
+      if (data?.isAuthenticated) setIsLoggedIn(true);
+    } catch (err) {
+      console.error("Failed to check authentication", err);
+    }
+  })();
+
   }, []);
 
   const handleLogout = () => {
