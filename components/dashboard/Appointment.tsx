@@ -40,7 +40,7 @@ export default function Appointments({ appointments }: Props) {
       <div className="flex items-center gap-2 mb-4">
   <input
     type="text"
-    placeholder="Search ef skin"
+    placeholder="Search eg: skin care"
     className="p-2 border border-gray-300 dark:border-gray-600 
                rounded w-full 
                bg-white dark:bg-gray-800 
