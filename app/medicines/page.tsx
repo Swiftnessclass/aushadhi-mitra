@@ -14,9 +14,16 @@ export default function MedicinesPage() {
   const [medicines, setMedicines] = useState<Medicine[]>([]);
   const [selectedMedicine, setSelectedMedicine] = useState<Medicine | null>(null);
   const [showPurchaseForm, setShowPurchaseForm] = useState(false);
-  const [formData, setFormData] = useState({ name: "", address: "", location: "",email:"" });
+  const [formData, setFormData] = useState({
+    name: "",
+    address: "",
+    location: "",
+    email: "",
+    quantity: 1, // 🆕 Added quantity
+  });
   const [submitted, setSubmitted] = useState(false);
-const [loading,setLoading]=useState(false);
+  const [loading, setLoading] = useState(false);
+
   // Fetch all medicines
   useEffect(() => {
     fetch("/api/medicines")
@@ -37,24 +44,29 @@ const [loading,setLoading]=useState(false);
     }
   };
 
-  // Handle form field changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  // Handle form changes
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: name === "quantity" ? Math.max(1, parseInt(value) || 1) : value, // prevent negative or 0
+    });
   };
 
+  // Cancel purchase
   const handleCancel = () => {
-    setShowPurchaseForm(false);     // Hide the form
-    setSelectedMedicine(null);      // Deselect the medicine
-    setFormData({                   // Optional: Reset form data
+    setShowPurchaseForm(false);
+    setSelectedMedicine(null);
+    setFormData({
       name: "",
       address: "",
       location: "",
-      email: ""
+      email: "",
+      quantity: 1,
     });
   };
-  
 
-  // Handle purchase form submission
+  // Submit purchase
   const handlePurchaseSubmit = async () => {
     setLoading(true);
     try {
@@ -63,32 +75,33 @@ const [loading,setLoading]=useState(false);
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: formData.name,
-          email: formData.email, // 🔴 Email is missing from form; hardcoded or add an input
+          email: formData.email,
           address: formData.address,
+          quantity: formData.quantity,
+          totalAmount: selectedMedicine ? selectedMedicine.price * formData.quantity : 0,
           medicine: {
             name: selectedMedicine?.name,
           },
         }),
       });
-  
+
       setSubmitted(true);
-      setFormData({ name: "", address: "", location: "",  email: "" });
+      setFormData({ name: "", address: "", location: "", email: "", quantity: 1 });
       setSelectedMedicine(null);
       setShowPurchaseForm(false);
     } catch (err) {
       console.error("Error sending email:", err);
-    }finally{
+    } finally {
       setLoading(false);
     }
   };
-  
 
-  // ✅ Confirmation popup
+  // ✅ Confirmation page
   if (submitted) {
     return (
       <div className="p-8 text-center">
         <h1 className="text-2xl font-bold text-green-600 mb-4">✅ Order Submitted!</h1>
-        <p className="text-gray-700"> confirmation email has been sent </p>
+        <p className="text-gray-700">A confirmation email has been sent.</p>
         <button
           className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
           onClick={() => setSubmitted(false)}
@@ -111,7 +124,7 @@ const [loading,setLoading]=useState(false);
             placeholder="Your Name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border px-4 py-2 rounded"
           />
           <input
             type="text"
@@ -119,7 +132,7 @@ const [loading,setLoading]=useState(false);
             placeholder="Address"
             value={formData.address}
             onChange={handleChange}
-            className="w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border px-4 py-2 rounded"
           />
           <input
             type="text"
@@ -127,42 +140,60 @@ const [loading,setLoading]=useState(false);
             placeholder="City / Location"
             value={formData.location}
             onChange={handleChange}
-            className="w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border px-4 py-2 rounded"
           />
           <input
-  type="email"
-  name="email"
-  placeholder="Your Email"
-  value={formData.email}
-  onChange={handleChange}
-  className="w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-/>
+            type="email"
+            name="email"
+            placeholder="Your Email"
+            value={formData.email}
+            onChange={handleChange}
+            className="w-full border px-4 py-2 rounded"
+          />
 
-<div className="flex gap-2">
-  <button
-    className={`w-full py-2 rounded text-white ${loading ? 'bg-gray-400' : 'bg-green-600 hover:bg-green-700'}`}
-    onClick={handlePurchaseSubmit}
-    disabled={loading}
-  >
-    {loading ? "Submitting..." : "Submit Purchase"}
-  </button>
+          {/* 🆕 Quantity selector */}
+          <div>
+            <label className="block text-sm font-semibold mb-1">Quantity</label>
+            <input
+              type="number"
+              name="quantity"
+              min="1"
+              value={formData.quantity}
+              onChange={handleChange}
+              className="w-full border px-4 py-2 rounded"
+            />
+          </div>
 
-  <button
-    className="w-full py-2 rounded text-white bg-red-500 hover:bg-red-600"
-    onClick={handleCancel}
-    disabled={loading}
-  >
-    Cancel
-  </button>
-</div>
+          {/* 🆕 Total price */}
+          <p className="font-bold text-green-700">
+            Total: ₹{selectedMedicine.price * formData.quantity}
+          </p>
 
+          <div className="flex gap-2">
+            <button
+              className={`w-full py-2 rounded text-white ${
+                loading ? "bg-gray-400" : "bg-green-600 hover:bg-green-700"
+              }`}
+              onClick={handlePurchaseSubmit}
+              disabled={loading}
+            >
+              {loading ? "Submitting..." : "Submit Purchase"}
+            </button>
 
+            <button
+              className="w-full py-2 rounded text-white bg-red-500 hover:bg-red-600"
+              onClick={handleCancel}
+              disabled={loading}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
     );
   }
 
-  // ✅ Show selected medicine with purchase option
+  // ✅ Selected medicine details
   if (selectedMedicine) {
     return (
       <div className="p-8 max-w-xl mx-auto">
@@ -188,7 +219,7 @@ const [loading,setLoading]=useState(false);
     );
   }
 
-  // ✅ List of all medicines
+  // ✅ Medicines list
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold text-blue-700 mb-6">Available Medicines</h1>
