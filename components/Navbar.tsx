@@ -23,7 +23,7 @@ export default function Navbar() {
     }
   })();
 
-  }, []);
+  }, [pathname]);
 
   const handleLogout = () => {
     document.cookie = "token=; Max-Age=0; path=/;";
