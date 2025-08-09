@@ -19,9 +19,14 @@ export default function SchemeCard({ scheme }: SchemeProps) {
   const [showFeedback, setShowFeedback] = useState(false);
 
   return (
-    <div className="border p-4 rounded shadow hover:shadow-lg transition bg-white mb-4">
-      <h2 className="text-xl font-semibold mb-2">{scheme.title}</h2>
-      <p className="mb-2">{scheme.description}</p>
+    <div className="border p-4 rounded shadow hover:shadow-lg transition bg-white dark:bg-gray-800 mb-4">
+    <h2 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
+      {scheme.title}
+    </h2>
+    <p className="mb-2 text-gray-700        dark:text-gray-500">
+        {scheme.description}
+    </p>
+
       <p className="text-sm text-gray-600">Category: {scheme.category}</p>
       <p className="text-sm text-gray-600">Min Age: {scheme.minAge}</p>
       <p className="text-sm text-gray-600">Max Income: ₹{scheme.maxIncome}</p>
