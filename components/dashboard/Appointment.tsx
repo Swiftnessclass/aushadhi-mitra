@@ -38,20 +38,26 @@ export default function Appointments({ appointments }: Props) {
       <h2 className="text-xl font-bold text-blue-800 mb-4">🔍 Search Appointments</h2>
 
       <div className="flex items-center gap-2 mb-4">
-        <input
-          type="text"
-          placeholder="Search by reason (e.g., fever)"
-          className="p-2 border rounded w-full"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button
-          onClick={handleSearch}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-        >
-          Search
-        </button>
-      </div>
+  <input
+    type="text"
+    placeholder="Search by reason (e.g., fever)"
+    className="p-2 border border-gray-300 dark:border-gray-600 
+               rounded w-full 
+               bg-white dark:bg-gray-800 
+               text-black dark:text-white 
+               placeholder-gray-500 dark:placeholder-gray-400 
+               focus:outline-none focus:ring-2 focus:ring-blue-500"
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+  />
+  <button
+    onClick={handleSearch}
+    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+  >
+    Search
+  </button>
+</div>
+
 
       {loading && <p className="text-blue-500 mb-2">Searching...</p>}
 
