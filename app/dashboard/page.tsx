@@ -18,33 +18,39 @@ export default function Home() {
           <p className="text-gray-700 text-lg">
             Your trusted companion for finding affordable medicines, nearby Jan Aushadhi stores, and government healthcare schemes.
           </p>
-          <div className="space-x-4 space-y-2 md:space-y-0 md:flex md:flex-wrap md:gap-4">
-            <Link
-              href="/medicine-search"
-              className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded shadow transition block"
-            >
-              Search Medicines
-            </Link>
-            <Link
-              href="/chatbot"
-              className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded shadow transition block"
-            >
-              Ask Aushadhi Bot
-            </Link>
-            <Link
-              href="/diet-plan"
-              className="bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-3 rounded shadow transition block"
-            >
-              Personalized Diet Plan
-            </Link>
-            <Link
-              href="/exercise-tool"
-              className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded shadow transition block"
-            >
-              Exercise Recommendations
-            </Link>
-            
-          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+  <Link
+    href="/medicine-search"
+    className="flex items-center justify-center bg-blue-700 hover:bg-blue-800 
+               text-white px-6 py-3 rounded shadow transition h-20"
+  >
+    Search Medicines
+  </Link>
+
+  <Link
+    href="/chatbot"
+    className="flex items-center justify-center bg-green-600 hover:bg-green-700 
+               text-white px-6 py-3 rounded shadow transition h-20"
+  >
+    Ask Aushadhi Bot
+  </Link>
+
+  <Link
+    href="/diet-plan"
+    className="flex items-center justify-center bg-yellow-600 hover:bg-yellow-700 
+               text-white px-6 py-3 rounded shadow transition h-20"
+  >
+    Personalized Diet Plan
+  </Link>
+
+  <Link
+    href="/exercise-tool"
+    className="flex items-center justify-center bg-purple-600 hover:bg-purple-700 
+               text-white px-6 py-3 rounded shadow transition h-20"
+  >
+    Exercise Recommend
+  </Link>
+</div>
         </div>
 
         {/* Right Image */}
