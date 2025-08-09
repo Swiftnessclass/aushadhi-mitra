@@ -13,6 +13,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const cookies = document.cookie;
+    console.log(cookies);
     setIsLoggedIn(cookies.includes("token="));
   }, []);
 
