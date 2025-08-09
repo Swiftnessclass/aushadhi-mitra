@@ -101,12 +101,15 @@ export default function PharmacySearch() {
 
         {/* Place input */}
         <input
-          type="text"
-          placeholder="📍 Enter a location (optional)"
-          value={place}
-          onChange={(e) => setPlace(e.target.value)}
-          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-black mb-5"
-        />
+  type="text"
+  placeholder="📍 Enter a location (optional)"
+  value={place}
+  onChange={(e) => setPlace(e.target.value)}
+  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 
+             text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 
+             bg-white dark:bg-gray-800 mb-5"
+/>
+
 
         {/* Radius dropdown */}
         <div className="mb-5">
