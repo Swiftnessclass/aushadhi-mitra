@@ -82,17 +82,18 @@ export default function SchemesPage() {
           onChange={handleChange}
         />
         <select
-          name="category"
-          className="p-2 border rounded"
-          value={filters.category}
-          onChange={handleChange}
-        >
-          <option value="">All Categories</option>
-          <option value="Women">Women</option>
-          <option value="Education">Education</option>
-          <option value="Senior">Senior</option>
-          <option value="General">General</option>
-        </select>
+         name="category"
+  className="p-2 border rounded text-gray-900 dark:text-white bg-white dark:bg-gray-700"
+  value={filters.category}
+  onChange={handleChange}
+>
+  <option value="">All Categories</option>
+  <option value="Women">Women</option>
+  <option value="Education">Education</option>
+  <option value="Senior">Senior</option>
+  <option value="General">General</option>
+</select>
+
       </div>
 
       <button
