@@ -33,7 +33,7 @@ export async function POST(req: Request) {
     });
 
     res.cookies.set("token", token, {
-      httpOnly: true,
+      httpOnly: false,
       path: "/",
       sameSite: "strict",
       secure: process.env.NODE_ENV === "production",
