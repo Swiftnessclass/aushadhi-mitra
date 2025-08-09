@@ -19,7 +19,7 @@ export default function MedicinesPage() {
     address: "",
     location: "",
     email: "",
-    quantity: "1", // always keep as string
+    quantity: "1", // ✅ keep as string
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -47,12 +47,11 @@ export default function MedicinesPage() {
   // Handle form changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value, // ✅ quantity stays string
     }));
   };
-  
 
   // Cancel purchase
   const handleCancel = () => {
@@ -63,7 +62,7 @@ export default function MedicinesPage() {
       address: "",
       location: "",
       email: "",
-      quantity: 1,
+      quantity: "1", // ✅ reset as string
     });
   };
 
@@ -86,14 +85,14 @@ export default function MedicinesPage() {
           },
         }),
       });
-  
+
       setSubmitted(true);
       setFormData({
         name: "",
         address: "",
         location: "",
         email: "",
-        quantity: "1", // reset as string
+        quantity: "1", // ✅ reset string
       });
       setSelectedMedicine(null);
       setShowPurchaseForm(false);
@@ -174,9 +173,8 @@ export default function MedicinesPage() {
 
           {/* 🆕 Total price */}
           <p className="font-bold text-green-700">
-  Total: ₹{selectedMedicine.price * (parseInt(formData.quantity, 10) || 0)}
-</p>
-
+            Total: ₹{selectedMedicine.price * (parseInt(formData.quantity, 10) || 0)}
+          </p>
 
           <div className="flex gap-2">
             <button
