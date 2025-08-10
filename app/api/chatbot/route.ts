@@ -26,10 +26,11 @@ export async function POST(req: Request) {
     console.log("Incoming message:", userMessage);
 
     const chatCompletion = await openai.chat.completions.create({
-      model: "gemma-7b-it", // or "llama3-8b", "mixtral-8x7b"
+      model: "llama3-70b-8192", // switched to supported model
       messages: [{ role: "user", content: userMessage }],
       temperature: 0.7,
     });
+    
 
     const reply: string | undefined = chatCompletion.choices?.[0]?.message?.content ?? undefined;
 
@@ -42,11 +43,16 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ reply });
   } catch (error: unknown) {
-    console.error("Groq API error:", error);
-
+    if (error instanceof Error) {
+      console.error("Groq API error:", error.message, error.stack);
+    } else {
+      console.error("Groq API error (unknown):", error);
+    }
+  
     return NextResponse.json(
       { reply: "Internal server error. Please try again later." },
       { status: 500 }
     );
   }
+  
 }

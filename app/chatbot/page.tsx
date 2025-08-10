@@ -29,12 +29,15 @@ export default function ChatBotPage() {
       const data = await res.json();
 
       setMessages((prev) => [...prev, { role: "bot", text: data.reply }]);
-    } catch (error) {
+    } catch (error: unknown) {
+      console.error("Chatbot error:", error);
+
+      const message = error instanceof Error ? error.message : String(error);
+
       setMessages((prev) => [
         ...prev,
-        { role: "bot", text: "Something went wrong. Please try again." },
+        { role: "bot", text: `Something went wrong: ${message}` },
       ]);
-      console.error("Chatbot error:", error);
     }
 
     setInput("");
@@ -74,13 +77,20 @@ export default function ChatBotPage() {
 
       {/* Input */}
       <div className="mt-4 flex">
-        <input
-          type="text"
-          className="flex-grow border rounded-l px-4 py-2 focus:outline-none"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Type your question..."
-        />
+      <input
+  type="text"
+  className="flex-grow border rounded-l px-4 py-2 focus:outline-none"
+  value={input}
+  onChange={(e) => setInput(e.target.value)}
+  placeholder="Type your question..."
+  onKeyDown={(e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      sendMessage();
+    }
+  }}
+/>
+
         <button
           onClick={sendMessage}
           className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-r"
