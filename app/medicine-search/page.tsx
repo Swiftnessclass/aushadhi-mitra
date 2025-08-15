@@ -16,21 +16,29 @@ export default function MedicineSearchPage() {
   const [disease, setDisease] = useState("");
   const [results, setResults] = useState<Medicine[]>([]);
   const [error, setError] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const handleSearch = async () => {
+    setLoading(true);
     if (!disease.trim()) {
       setError("Please enter a disease name.");
+      setLoading(false);
       return;
     }
 
-    setError("");
-    const res = await fetch(`/api/search?disease=${encodeURIComponent(disease)}`);
-    const data = await res.json();
+    try {
+      setError("");
+      const res = await fetch(`/api/search?disease=${encodeURIComponent(disease)}`);
+      const data = await res.json();
 
-    if (res.ok) {
-      setResults(data);
-    } else {
-      setError(data.error || "Something went wrong");
+      if (res.ok) {
+        setResults(data);
+      } else {
+        setError(data.error || "Something went wrong");
+      }
+    } catch (err) {
+      setError("Failed to fetch data");
+    } finally {
+      setLoading(false); // ✅ Always stop loader
     }
   };
 
@@ -45,12 +53,41 @@ export default function MedicineSearchPage() {
         onChange={(e) => setDisease(e.target.value)}
         className="border p-2 w-full max-w-md"
       />
-      <button
-        onClick={handleSearch}
-        className="bg-blue-500 text-white px-4 py-2 mt-2 ml-2 rounded hover:bg-blue-600 transition"
-      >
-        Search
-      </button>
+       <button
+      onClick={handleSearch}
+      disabled={loading}
+      className={`bg-blue-500 text-white px-4 py-2 mt-2 ml-2 rounded transition ${
+        loading ? "opacity-70 cursor-not-allowed" : "hover:bg-blue-600"
+      }`}
+    >
+      {loading ? (
+        <div className="flex items-center">
+          <svg
+            className="animate-spin h-5 w-5 mr-2 text-white"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            ></circle>
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 018 8h-4l3 3 3-3h-4a8 8 0 01-8 8v-4l-3 3 3 3v-4a8 8 0 01-8-8z"
+            ></path>
+          </svg>
+          Searching...
+        </div>
+      ) : (
+        "Search"
+      )}
+    </button>
 
       {error && <p className="text-red-600 mt-2">{error}</p>}
 
