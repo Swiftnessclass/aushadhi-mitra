@@ -3,18 +3,47 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+type MessagePart = {
+  type: "list" | "text";
+  content: string;
+};
+
+type ChatMessage = {
+  role: "bot" | "user";
+  text: string | MessagePart[];
+};
+
 export default function ChatBotPage() {
   const router = useRouter();
 
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState<ChatMessage[]>([
     { role: "bot", text: "Hi! How can I help you today?" },
   ]);
   const [input, setInput] = useState("");
 
+  // Explicit return type so TypeScript knows the array shape
+  const formatMessage = (text: string): MessagePart[] => {
+    return text
+      .split("\n")
+      .filter((line) => line.trim() !== "")
+      .map((line) => {
+        if (
+          line.trim().startsWith("*") ||
+          line.trim().match(/^\d+\./)
+        ) {
+          return { type: "list", content: line.trim() } as MessagePart;
+        }
+        return { type: "text", content: line.trim() } as MessagePart;
+      });
+  };
+
   const sendMessage = async () => {
     if (!input.trim()) return;
 
-    const newMessages = [...messages, { role: "user", text: input }];
+    const newMessages: ChatMessage[] = [
+      ...messages,
+      { role: "user", text: input },
+    ];
     setMessages(newMessages);
 
     try {
@@ -28,15 +57,21 @@ export default function ChatBotPage() {
 
       const data = await res.json();
 
-      setMessages((prev) => [...prev, { role: "bot", text: data.reply }]);
-    } catch (error: unknown) {
-      console.error("Chatbot error:", error);
+      const formattedReply = formatMessage(data.reply);
 
+      setMessages((prev: ChatMessage[]) => [
+        ...prev,
+        { role: "bot", text: formattedReply },
+      ]);
+    } catch (error: unknown) {
       const message = error instanceof Error ? error.message : String(error);
 
-      setMessages((prev) => [
+      setMessages((prev: ChatMessage[]) => [
         ...prev,
-        { role: "bot", text: `Something went wrong: ${message}` },
+        {
+          role: "bot",
+          text: [{ type: "text", content: `Something went wrong: ${message}` }],
+        },
       ]);
     }
 
@@ -68,28 +103,45 @@ export default function ChatBotPage() {
                 : "text-right text-green-700"
             }`}
           >
-            <span className="inline-block px-4 py-2 rounded bg-white shadow">
-              {msg.text}
-            </span>
+            <div className="inline-block px-4 py-2 rounded bg-white shadow max-w-[90%]">
+              {Array.isArray(msg.text)
+                ? msg.text.map((part, i) =>
+                    part.type === "list" ? (
+                      <li
+                        key={i}
+                        className="ml-4 list-disc text-gray-800"
+                      >
+                        {part.content}
+                      </li>
+                    ) : (
+                      <p key={i} className="mb-1 text-gray-800">
+                        {part.content}
+                      </p>
+                    )
+                  )
+                : (
+                  <p className="text-gray-800">{msg.text}</p>
+                )}
+            </div>
           </div>
         ))}
       </div>
 
       {/* Input */}
       <div className="mt-4 flex">
-      <input
-  type="text"
-  className="flex-grow border rounded-l px-4 py-2 focus:outline-none"
-  value={input}
-  onChange={(e) => setInput(e.target.value)}
-  placeholder="Type your question..."
-  onKeyDown={(e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      sendMessage();
-    }
-  }}
-/>
+        <input
+          type="text"
+          className="flex-grow border rounded-l px-4 py-2 focus:outline-none"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Type your question..."
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              sendMessage();
+            }
+          }}
+        />
 
         <button
           onClick={sendMessage}
